@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 525 525">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#Blue_Steel);
+      }
+    </style>
+    <linearGradient id="Blue_Steel" data-name="Blue Steel" x1="262.5" y1="7" x2="262.5" y2="503.06" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#7da7d9"/>
+      <stop offset=".07" stop-color="#35517d"/>
+      <stop offset=".5" stop-color="#dee6f5"/>
+      <stop offset=".62" stop-color="#bacdea"/>
+      <stop offset=".67" stop-color="#b6cae8"/>
+      <stop offset=".71" stop-color="#aac3e5"/>
+      <stop offset=".76" stop-color="#96b6df"/>
+      <stop offset=".81" stop-color="#7aa5d8"/>
+      <stop offset=".81" stop-color="#7aa5d8"/>
+      <stop offset="1" stop-color="#174d6b"/>
+    </linearGradient>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <rect class="cls-1" width="525" height="525" rx="21.5" ry="21.5"/>
+  </g>
+</svg>

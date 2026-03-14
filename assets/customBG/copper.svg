@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 525 525">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#Copper);
+      }
+    </style>
+    <linearGradient id="Copper" x1="7.7" y1="12.3" x2="506.7" y2="502.3" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#541513"/>
+      <stop offset=".08" stop-color="#8d5027"/>
+      <stop offset=".38" stop-color="#cb9552"/>
+      <stop offset=".56" stop-color="#fff2db"/>
+      <stop offset=".8" stop-color="#d7b189"/>
+      <stop offset=".92" stop-color="#ab6b2d"/>
+      <stop offset=".96" stop-color="#9c530d"/>
+    </linearGradient>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <rect class="cls-1" width="525" height="525" rx="21.5" ry="21.5"/>
+  </g>
+</svg>

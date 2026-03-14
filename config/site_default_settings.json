@@ -1,0 +1,77 @@
+{
+    "asset_packs": {
+        "Walking Woman": "https://drive.google.com/uc?export=download&id=1nHhDNMWj3Reox5yfo-zlk_4Ry4KsC7hZ",
+        "Still Life": "https://drive.google.com/uc?export=download&id=1oEQi6lnq32D9thOUEySL1NtYk66pDmpt"
+    },
+    "commons": {
+        "model_types": [
+            "sdxl",
+            "sd1.5",
+            "sd2.x",
+            "sd3",
+            "flux",
+            "pony",
+            "illustrious",
+            "auraflow",
+            "hunyuan",
+            "lumina2",
+            "chroma",
+            "hidream",
+            "z-image-base",
+            "z-image-turbo"
+        ],
+        "aspect_ratios": [
+            "1:1 Square", 
+            "16:9 Widescreen", 
+            "4:3 Standard", 
+            "21:9 Ultrawide", 
+            "3:2 Photo",
+            "Custom"
+        ],
+        "orientations": [
+            "landscape",
+            "portrait",
+            "auto"
+        ]
+    },
+    "multisaver": {
+        "filename_order_presets": [
+            "PRE,PRJ,BN,ET,SUF,TS,CID",
+            "CID,PRE,PRJ,BN,ET,TS,SUF",
+            "PRE,BN,CID",
+            "PRJ,BN,ET,TS,CID",
+            "BN,ET,TS,CID",
+            "PRJ,BN,TS",
+            "BN,TS,CID"
+        ],
+        "separators": [
+            "_",
+            "-",
+            ".",
+            " ",
+            ""
+        ]
+    },
+    "themes": {
+        "active_palette": "Standard",
+        "palettes": {
+            "Standard": {
+                "node": {
+                    "loaders": "#9ba59b",
+                    "samplers": "#9ba59b",
+                    "latents": "#eecdec",
+                    "notes": "#1474af",
+                    "notes_info": "#1474af",
+                    "notes_attention": "#ffcc00",
+                    "notes_warning": "#d13438",
+                    "notes_gray": "#444444",
+                    "prompts_pos": "#1a571a",
+                    "prompts_neg": "#571a1a",
+                    "switches": "#14ff3c",
+                    "utility": "#eab114",
+                    "islands": "#222222"
+                }
+            }
+        }
+    }
+}

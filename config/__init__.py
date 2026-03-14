@@ -1,0 +1,1 @@
+"""Shima config package."""

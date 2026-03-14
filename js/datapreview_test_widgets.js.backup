@@ -1,0 +1,300 @@
+/**
+ * Shima.DataPreviewTest - Widget Extensions
+ * 
+ * Implements:
+ * 1. "Used Values" display box (like Inspector)
+ * 2. Widget highlighting (green border for critical switches)
+ */
+
+import { app } from "../../scripts/app.js";
+import { setupBottomToggles } from "./bottom_toggles.js";
+
+/**
+ * Set up the "used values" text display for DataPreviewTest node
+ * @param {LGraphNode} node - The node instance
+ */
+function setupUsedValuesDisplay(node) {
+    // Create a container for the text display
+    const container = document.createElement("div");
+    container.className = "shima-used-values-display";
+    container.style.cssText = `
+        background: #1a1a1a;
+        color: #888;
+        padding: 8px;
+        font-family: 'Courier New', monospace;
+        font-size: 11px;
+        border-top: 1px solid #333;
+        white-space: pre;
+        line-height: 1.4;
+    `;
+    container.textContent = "Waiting for execution...";
+
+    // Add as a DOM widget (non-serialized)
+    const widget = node.addDOMWidget("used_values_display", "div", container, {
+        serialize: false,
+        hideOnZoom: false
+    });
+
+    if (widget) {
+        // Make the widget taller to show all content
+        widget.computeSize = () => [node.size[0] - 20, 140];
+    }
+
+    // Store reference for updates
+    node.shimaUsedValuesContainer = container;
+    node.shimaUsedValuesWidget = widget;
+
+    // Hook into onExecuted to receive the used values text
+    const origOnExecuted = node.onExecuted;
+    node.onExecuted = function (message) {
+        if (origOnExecuted) {
+            origOnExecuted.call(this, message);
+        }
+
+        // Update the text display if we received used_values
+        if (message?.used_values && message.used_values[0]) {
+            container.textContent = message.used_values[0];
+        }
+    };
+
+    console.log("[Shima] Set up used values display for DataPreviewTest");
+}
+
+/**
+ * Highlight a widget with a colored border and colored toggle dot
+ * @param {LGraphNode} node - The node instance
+ * @param {string} widgetName - Name of widget to highlight
+ * @param {string} color - CSS color for the highlight
+ */
+function highlightWidget(node, widgetName, color) {
+    const widget = node.widgets?.find(w => w.name === widgetName);
+    if (!widget) {
+        console.warn(`[Shima] Widget "${widgetName}" not found for highlighting`);
+        return;
+    }
+
+    // Store custom color on the widget
+    widget.shimaHighlightColor = color;
+
+    // Mark node for custom drawing
+    if (!node.shimaHighlightedWidgets) {
+        node.shimaHighlightedWidgets = [];
+    }
+    node.shimaHighlightedWidgets.push(widgetName);
+
+    console.log(`[Shima] Highlighting widget "${widgetName}" with color ${color}`);
+}
+
+/**
+ * Helper to draw rounded rectangle
+ */
+function drawRoundedRect(ctx, x, y, width, height, radius) {
+    ctx.beginPath();
+    ctx.moveTo(x + radius, y);
+    ctx.lineTo(x + width - radius, y);
+    ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+    ctx.lineTo(x + width, y + height - radius);
+    ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+    ctx.lineTo(x + radius, y + height);
+    ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+    ctx.lineTo(x, y + radius);
+    ctx.quadraticCurveTo(x, y, x + radius, y);
+    ctx.closePath();
+}
+
+/**
+ * Custom draw function to render highlighted widget borders and colored toggle dots
+ * Draws a "halo" effect - slightly larger rounded rectangle behind the widget
+ * to create a visible border without z-order issues
+ * @param {LGraphNode} node - The node instance
+ */
+function setupHighlightedWidgetDrawing(node) {
+    // Use onDrawForeground which draws AFTER widgets
+    const origOnDrawForeground = node.onDrawForeground;
+
+    node.onDrawForeground = function (ctx) {
+        // Draw highlights FIRST (before widgets render on top)
+        if (this.shimaHighlightedWidgets && this.widgets) {
+            const NODE_TITLE_HEIGHT = LiteGraph.NODE_TITLE_HEIGHT || 30;
+            const NODE_WIDGET_HEIGHT = LiteGraph.NODE_WIDGET_HEIGHT || 20;
+
+            ctx.save(); // Save context state
+
+            for (const widgetName of this.shimaHighlightedWidgets) {
+                const widget = this.widgets.find(w => w.name === widgetName);
+                if (!widget || widget.type === "hidden") continue;
+
+                const highlightColor = widget.shimaHighlightColor || "#00ff00";
+                const widgetIndex = this.widgets.indexOf(widget);
+
+
+                // DEBUG: Log once per node setup, not every frame
+                if (!this.shimaHaloDebugLogged) {
+                    console.log(`[Shima Halo] Highlighting widget "${widgetName}" at index ${widgetIndex} of ${this.widgets.length} total widgets`);
+                    this.shimaHaloDebugLogged = true;
+                }
+
+                // Calculate widget Y position
+                // Current calc puts us at widget 4, we need widget 5, so add 20px more
+                // Formula was: 30 + 2 + (5*20) + 20 = 152 (widget 4)
+                // Need: 30 + 2 + (5*20) + 40 = 172 (widget 5)
+                const topMargin = 2;
+                const extraOffset = 36; // Extra offset to align properly
+                const y = NODE_TITLE_HEIGHT + topMargin + (widgetIndex * NODE_WIDGET_HEIGHT) + extraOffset;
+
+                // For pill-shaped widgets (toggles), draw a halo that's slightly larger
+                // This creates a visible border around the widget without z-order issues
+                const haloOffset = 3; // How much larger the halo is (in all directions)
+
+                // The actual widget pill is smaller than NODE_WIDGET_HEIGHT
+                // It's approximately 16px tall, not 20px
+                const actualPillHeight = 16;
+
+                // Calculate precise dimensions for the halo
+                const haloX = 16 - haloOffset;
+                // Adjust Y to center on the smaller actual pill (+2px centers the halo vertically)
+                const haloY = y - haloOffset - 1;
+                const haloWidth = this.size[0] - 32 + (haloOffset * 2);
+                // Use the actual pill height, not NODE_WIDGET_HEIGHT
+                const haloHeight = actualPillHeight + 1 + (haloOffset * 2);
+
+                // Make pill radius fully semicircular (height / 2 for perfect semi-circle ends)
+                const pillRadius = haloHeight / 1.8;
+
+                // Draw the halo outline
+                ctx.strokeStyle = highlightColor;
+                ctx.lineWidth = 2;
+                ctx.setLineDash([]);
+
+                drawRoundedRect(ctx, haloX, haloY, haloWidth, haloHeight, pillRadius);
+                ctx.stroke();
+
+                // Add a subtle glow effect for extra visibility
+                ctx.shadowColor = highlightColor;
+                ctx.shadowBlur = 6;
+
+                // Draw again with glow
+                drawRoundedRect(ctx, haloX, haloY, haloWidth, haloHeight, pillRadius);
+                ctx.stroke();
+
+                // Reset shadow
+                ctx.shadowBlur = 0;
+            }
+
+            ctx.restore(); // Restore context state
+        }
+
+        // Call original draw AFTER highlights (so widgets draw on top)
+        if (origOnDrawForeground) {
+            origOnDrawForeground.call(this, ctx);
+        }
+    };
+}
+
+/**
+ * Main setup function for Shima.DataPreviewTest node
+ * @param {LGraphNode} node - The node instance
+ */
+function setupDataPreviewTestNode(node) {
+    // 1. Add the "used values" text display box
+    setupUsedValuesDisplay(node);
+
+    // 2. Add bottom toggle icons for both widgets
+    setupBottomToggles(node, {
+        useCommonParams: true,
+        allowExternalLinking: true
+    });
+
+    // 3. Hide the actual toggle widgets (handled by bottom icons now)
+    const hideWidget = (widgetName) => {
+        const widget = node.widgets?.find(w => w.name === widgetName);
+        if (widget && widget.type !== "hidden") {
+            widget.origType = widget.type;
+            widget.origComputeSize = widget.computeSize;
+            widget.type = "hidden";
+            widget.computeSize = () => [0, -4];
+        }
+    };
+
+    setTimeout(() => {
+        hideWidget("use_commonparams");
+        hideWidget("allow_external_linking");
+
+        // Recalculate node size after hiding widgets
+        const newSize = node.computeSize();
+        node.setSize([node.size[0], newSize[1]]);
+        node.setDirtyCanvas(true, true);
+    }, 100);
+
+    // 4. Set up dynamic visibility for the used values display
+    const showWidget = node.widgets?.find(w => w.name === "show_used_values");
+    if (showWidget && node.shimaUsedValuesWidget) {
+        // Function to update visibility
+        const updateVisibility = (visible) => {
+            const widget = node.shimaUsedValuesWidget;
+            if (!widget) return;
+
+            // Store current width to preserve it
+            const currentWidth = node.size[0];
+
+            if (visible) {
+                // Show the widget
+                if (widget.type === "hidden") {
+                    widget.type = widget.origType || "div";
+                    widget.computeSize = widget.origComputeSize || (() => [currentWidth - 20, 140]);
+                }
+            } else {
+                // Hide the widget
+                if (widget.type !== "hidden") {
+                    widget.origType = widget.type;
+                    widget.origComputeSize = widget.computeSize;
+                    widget.type = "hidden";
+                    widget.computeSize = () => [0, -4];
+                }
+            }
+
+            // Recalculate height but preserve width
+            const newSize = node.computeSize();
+            node.setSize([Math.max(currentWidth, newSize[0]), newSize[1]]);
+            node.setDirtyCanvas(true, true);
+        };
+
+        // Hook into the toggle's callback
+        const origCallback = showWidget.callback;
+        showWidget.callback = function (value) {
+            updateVisibility(value);
+            if (origCallback) {
+                origCallback.call(this, value);
+            }
+        };
+
+        // Apply initial visibility
+        updateVisibility(showWidget.value);
+    }
+
+    // 5. Adjust initial node size to accommodate the text box (if visible)
+    setTimeout(() => {
+        const currentHeight = node.size[1];
+        const showValues = showWidget?.value !== false;
+        const targetHeight = showValues ? 450 : 320;
+        node.setSize([Math.max(node.size[0], 350), Math.max(currentHeight, targetHeight)]);
+    }, 100);
+
+    console.log("[Shima] DataPreviewTest node fully configured");
+}
+
+// Register the extension with ComfyUI
+app.registerExtension({
+    name: "Shima.DataPreviewTest",
+    async beforeRegisterNodeDef(nodeType, nodeData, app) {
+        if (nodeData.name === "Shima.DataPreviewTest") {
+            const onNodeCreated = nodeType.prototype.onNodeCreated;
+            nodeType.prototype.onNodeCreated = function () {
+                if (onNodeCreated) {
+                    onNodeCreated.apply(this, arguments);
+                }
+                setupDataPreviewTestNode(this);
+            };
+        }
+    }
+});

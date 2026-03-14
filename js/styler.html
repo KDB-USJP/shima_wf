@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shima Styler</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a1a1a;
+            color: #fff;
+        }
+
+        .card {
+            background: #2a2a2a;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.2s, background 0.2s;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            border: 2px solid transparent;
+            /* Prepare for selected state */
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            background: #333;
+        }
+
+        .card.active {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+        }
+
+        .card-img-container {
+            width: 100%;
+            padding-top: 100%;
+            /* 1:1 Aspect Ratio */
+            position: relative;
+            background-color: #222;
+        }
+
+        .card-img-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .fallback-text {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            text-align: center;
+            font-size: 0.85em;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+            overflow: hidden;
+            word-break: break-word;
+        }
+
+        .card-body {
+            padding: 10px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .card-title {
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-bottom: 4px;
+            line-height: 1.2;
+        }
+
+        .card-text {
+            font-size: 0.75em;
+            color: #aaa;
+        }
+
+        #gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 16px;
+            padding: 16px;
+            padding-bottom: 80px;
+            /* Space for footer */
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #444;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Tabs */
+        .tab-btn {
+            padding: 8px 16px;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            color: #888;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active {
+            color: #3b82f6;
+            border-bottom-color: #3b82f6;
+        }
+
+        .tab-btn:hover {
+            color: #ccc;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%) translateY(20px);
+            background: #10b981;
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            opacity: 0;
+            transition: all 0.3s;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+    </style>
+</head>
+
+<body class="flex flex-col h-screen overflow-hidden">
+
+    <!-- Header -->
+    <header class="bg-[#222] border-b border-[#333] p-4 flex flex-col gap-2 shrink-0 z-10 shadow-md">
+        <div class="flex items-center justify-between">
+            <h1 class="text-lg font-bold text-white">Shima <span class="text-blue-500">Styler</span></h1>
+            <div class="flex space-x-2">
+                <button onclick="copyIds()"
+                    class="bg-gray-700 hover:bg-gray-600 px-3 py-1 rounded text-xs text-gray-200 transaction-colors">Copy
+                    IDs</button>
+                <button onclick="clearSelection()"
+                    class="bg-red-900/50 hover:bg-red-800/50 text-red-200 px-3 py-1 rounded text-xs transition-colors">Clear</button>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="flex space-x-4 border-b border-[#333] mt-2 mb-2">
+            <div id="tab-artists" class="tab-btn active" onclick="switchTab('artists')">Artists</div>
+            <div id="tab-user_styles" class="tab-btn" onclick="switchTab('user_styles')">User Styles</div>
+        </div>
+
+        <div class="flex gap-2">
+            <input type="text" id="searchInput" placeholder="Search styles..."
+                class="bg-[#333] border border-[#444] text-gray-200 rounded px-3 py-1 text-sm w-full focus:outline-none focus:border-blue-500 transition-colors">
+            <select id="categoryFilter"
+                class="bg-[#333] border border-[#444] text-gray-200 rounded px-2 py-1 text-sm max-w-[150px] focus:outline-none focus:border-blue-500">
+                <option value="">All Categories</option>
+            </select>
+            <select id="packFilter"
+                class="bg-[#333] border border-[#444] text-gray-200 rounded px-2 py-1 text-sm max-w-[150px] focus:outline-none focus:border-blue-500">
+                <option value="">Auto (Pack)</option>
+            </select>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-y-auto relative bg-[#1a1a1a]" id="mainContainer">
+        <div id="loading" class="absolute inset-0 flex items-center justify-center bg-[#1a1a1a] z-20">
+            <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
+        </div>
+        <div id="gallery"></div>
+    </main>
+
+    <!-- Footer -->
+    <footer
+        class="bg-[#222] border-t border-[#333] p-3 text-xs text-gray-400 flex justify-between items-center shrink-0">
+        <div id="selectionInfo">Selected: 0 items</div>
+        <div id="selectionIds" class="font-mono text-gray-500 truncate max-w-[200px]"></div>
+    </footer>
+
+    <div id="toast" class="toast">Copied IDs to Clipboard!</div>
+
+    <script>
+        let rawData = { artists: [], user_styles: [] };
+        let currentTab = 'artists';
+        let categories = new Set();
+        let selectedIds = new Set();
+
+        const gallery = document.getElementById('gallery');
+        const searchInput = document.getElementById('searchInput');
+        const categoryFilter = document.getElementById('categoryFilter');
+        const packFilter = document.getElementById('packFilter');
+        const loading = document.getElementById('loading');
+        const selectionInfo = document.getElementById('selectionInfo');
+        const selectionIdsEl = document.getElementById('selectionIds');
+        const toast = document.getElementById('toast');
+
+        async function fetchData() {
+            try {
+                // Determine API Base
+                // If running embedded, relative path works.
+                // If running standalone/dev, use stored strict path or default.
+                let apiBase = localStorage.getItem('shima_api_base') || '';
+
+                const response = await fetch(`${apiBase}/shima/styler/data`);
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+
+                const json = await response.json();
+
+                // Response normalized to {artists: [], user_styles: []}
+                if (Array.isArray(json)) {
+                    // Legacy fallback
+                    rawData.artists = json;
+                    rawData.user_styles = [];
+                } else {
+                    rawData = json;
+                }
+
+                // Add Global IDs and Metadata
+                let offset = 0;
+
+                // Artists
+                if (rawData.artists) {
+                    rawData.artists.forEach((item, index) => {
+                        item._global_id = offset + index;
+                        // Backend now provides 'id' (e.g. A0), but we'll ensure it for safety
+                        if (!item.id) item.id = `A${index}`;
+                        item._namespaced_id = item.id;
+                        item._source = 'artists';
+                        item._searchStr = (item.name + ' ' + (item.info || '')).toLowerCase();
+                    });
+                    offset += rawData.artists.length;
+                }
+
+                // User Styles
+                if (rawData.user_styles) {
+                    rawData.user_styles.forEach((item, index) => {
+                        item._global_id = offset + index;
+                        if (!item.id) item.id = `U${index}`;
+                        item._namespaced_id = item.id;
+                        item._source = 'user_styles';
+                        item._searchStr = (item.name + ' ' + (item.info || '')).toLowerCase();
+                    });
+                }
+
+                render();
+                updateCategories();
+                updatePacks();
+
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                gallery.innerHTML = `<div class="col-span-full p-8 text-center text-red-400">
+                    <p class="mb-2">Error loading style data.</p>
+                    <p class="text-xs text-gray-500">${error.message}</p>
+                </div>`;
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+
+        function switchTab(tab) {
+            currentTab = tab;
+
+            // Update UI
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`tab-${tab}`).classList.add('active');
+
+            // Reset Filters
+            searchInput.value = '';
+            categoryFilter.value = '';
+
+            updateCategories();
+            render();
+        }
+
+        function updateCategories() {
+            categories.clear();
+            const data = rawData[currentTab] || [];
+
+            data.forEach(item => {
+                if (item.categories) {
+                    item.categories.forEach(cat => categories.add(cat));
+                }
+            });
+
+            const sortedCats = Array.from(categories).sort();
+
+            categoryFilter.innerHTML = '<option value="">All Categories</option>';
+            sortedCats.forEach(cat => {
+                const option = document.createElement('option');
+                option.value = cat;
+                option.textContent = cat;
+                categoryFilter.appendChild(option);
+            });
+        }
+
+        async function updatePacks() {
+            try {
+                let apiBase = localStorage.getItem('shima_api_base') || '';
+                const response = await fetch(`${apiBase}/shima/assets/check`);
+                const data = await response.json();
+
+                packFilter.innerHTML = '<option value="">Auto (Recursive)</option>';
+                if (data.pack_status) {
+                    Object.entries(data.pack_status).forEach(([name, installed]) => {
+                        if (installed) {
+                            const opt = document.createElement('option');
+                            opt.value = name;
+                            opt.textContent = name;
+                            packFilter.appendChild(opt);
+                        }
+                    });
+                }
+
+                // Get current active pack from settings
+                const settingsRes = await fetch(`${apiBase}/shima/settings/get`);
+                const settings = await settingsRes.json();
+                const activePack = settings.active_thumbnail_pack || settings.themes?.active_thumbnail_pack;
+                if (activePack) packFilter.value = activePack;
+
+            } catch (e) { console.error("Failed to load packs", e); }
+        }
+
+        async function onPackChange() {
+            const pack = packFilter.value;
+            let apiBase = localStorage.getItem('shima_api_base') || '';
+
+            await fetch(`${apiBase}/shima/settings/update`, {
+                method: "POST",
+                body: JSON.stringify({ active_thumbnail_pack: pack })
+            });
+
+            // Refresh images by re-rendering cards
+            render();
+        }
+
+        function render() {
+            const data = rawData[currentTab] || [];
+            const searchTerm = searchInput.value.toLowerCase();
+            const selectedCat = categoryFilter.value;
+
+            gallery.innerHTML = '';
+
+            // Filter
+            const filtered = data.filter(item => {
+                const matchesSearch = !searchTerm || item._searchStr.includes(searchTerm);
+                const matchesCat = !selectedCat || (item.categories && item.categories.includes(selectedCat));
+                return matchesSearch && matchesCat;
+            });
+
+            if (filtered.length === 0) {
+                gallery.innerHTML = '<div class="col-span-full text-center text-gray-500 py-12">No styles found matching criteria.</div>';
+                return;
+            }
+
+            // Limit rendering for performance
+            const limit = 500;
+            const fragment = document.createDocumentFragment();
+
+            filtered.slice(0, limit).forEach(item => {
+                const card = document.createElement('div');
+                const isSelected = selectedIds.has(item._namespaced_id);
+
+                card.className = `card ${isSelected ? 'active' : ''}`;
+                card.onclick = () => toggleSelection(item._namespaced_id, card);
+
+                // Deterministic Color
+                const hue = (item._global_id * 137.508) % 360;
+                const bg = `hsl(${hue}, 40%, 30%)`;
+
+                let imgHtml = '';
+
+                // Add cache buster for pack switching
+                const cacheBuster = `t=${Date.now()}`;
+
+                if (currentTab === 'artists') {
+                    // Use item.id (A0, A1...) for the image request
+                    imgHtml = `
+                        <img src="/shima/styler/image_v2/${item.id}.png?${cacheBuster}" 
+                             class="card-img-top" 
+                             loading="lazy"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                        <div class="fallback-text" style="display:none; background:${bg}">
+                            ${item.name}
+                        </div>
+                     `;
+                } else {
+                    // User Styles
+                    imgHtml = `
+                        <img src="/shima/styler/image_v2/${item.id}.png?${cacheBuster}" 
+                             class="card-img-top" 
+                             loading="lazy"
+                             onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                        <div class="fallback-text" style="display:none; background:${bg}">
+                            ${item.name}
+                        </div>
+                     `;
+                }
+
+                card.innerHTML = `
+                    <div class="card-img-container" style="background:${bg}">
+                        ${imgHtml}
+                    </div>
+                    <div class="card-body">
+                        <div class="card-title truncate" title="${item.name}">${item.name}</div>
+                        <div class="card-text truncate" title="${item.categories?.join(', ')}">${item.categories?.join(', ') || ''}</div>
+                    </div>
+                `;
+                fragment.appendChild(card);
+            });
+
+            gallery.appendChild(fragment);
+        }
+
+        function toggleSelection(id, cardElement) {
+            if (selectedIds.has(id)) {
+                selectedIds.delete(id);
+                cardElement.classList.remove('active');
+            } else {
+                selectedIds.add(id);
+                cardElement.classList.add('active');
+            }
+            updateFooter();
+        }
+
+        function updateFooter() {
+            const count = selectedIds.size;
+            selectionInfo.textContent = `Selected: ${count} items`;
+            if (count > 0) {
+                selectionInfo.classList.add("text-yellow-400");
+                // Sort IDs? A1, A2, U1...
+                // Simple sort works for strings but better is alpha-numeric sort
+                const sortedIds = Array.from(selectedIds).sort((a, b) => {
+                    // Custom sort to handle A1 vs A10 properly
+                    const re = /^([AU])(\d+)$/;
+                    const ma = a.match(re);
+                    const mb = b.match(re);
+                    if (ma && mb) {
+                        if (ma[1] !== mb[1]) return ma[1].localeCompare(mb[1]); // A before U
+                        return parseInt(ma[2]) - parseInt(mb[2]);
+                    }
+                    return a.localeCompare(b);
+                });
+                selectionIdsEl.textContent = sortedIds.join(', ');
+            } else {
+                selectionInfo.classList.remove("text-yellow-400");
+                selectionIdsEl.textContent = "";
+            }
+        }
+
+        function copyIds() {
+            // Re-use sort logic from footer
+            const sortedIds = Array.from(selectedIds).sort((a, b) => {
+                const re = /^([AU])(\d+)$/;
+                const ma = a.match(re);
+                const mb = b.match(re);
+                if (ma && mb) {
+                    if (ma[1] !== mb[1]) return ma[1].localeCompare(mb[1]);
+                    return parseInt(ma[2]) - parseInt(mb[2]);
+                }
+                return a.localeCompare(b);
+            });
+            const str = sortedIds.join(', ');
+            if (!str) return;
+
+            navigator.clipboard.writeText(str).then(() => {
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 2000);
+            });
+        }
+
+        function clearSelection() {
+            selectedIds.clear();
+            document.querySelectorAll('.card.active').forEach(c => c.classList.remove('active'));
+            updateFooter();
+        }
+
+        // Debounce search
+        let debounceTimer;
+        searchInput.addEventListener('input', () => {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(render, 300);
+        });
+
+        categoryFilter.addEventListener('change', render);
+        packFilter.addEventListener('change', onPackChange);
+
+        // Init
+        fetchData();
+
+    </script>
+</body>
+
+</html>

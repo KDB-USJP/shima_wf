@@ -1,0 +1,771 @@
+File API: aiohttp routes registered
+ND Super Nodes: API routes registered
+ND Super Nodes: Module loaded successfully
+ND Super Nodes: Web API routes registered
+Plush - Running on python installation: C:\AI\.venv\Scripts\python.exe, ver: 3.12.11 (main, Aug 18 2025, 19:17:54) [MSC v.1944 64 bit (AMD64)]
+Plush - Current Openai Version:  2.15.0
+Plush - Version: 1.22.3
+[Shima] API routes registered successfully
+[Shima] Registered 57 custom nodes
+ComfyUI-GGUF: Allowing full torch compile
+
+Import times for custom nodes:
+   0.0 seconds: C:\AI\ComfyUI\resources\ComfyUI\custom_nodes\websocket_image_save.py
+   0.0 seconds: C:\AI\custom_nodes\promptoptimizer
+   0.0 seconds: C:\AI\custom_nodes\comfyui-imageautotone
+   0.0 seconds: C:\AI\custom_nodes\comfyui-pixelgrid-helpers
+   0.0 seconds: C:\AI\custom_nodes\Comfyui-Resolution-Master
+   0.0 seconds: C:\AI\custom_nodes\comfyui_seamless_patten
+   0.0 seconds: C:\AI\custom_nodes\comfyui-floodgate
+   0.0 seconds: C:\AI\custom_nodes\comfyui-show-text
+   0.0 seconds: C:\AI\custom_nodes\randomseedgenerator
+   0.0 seconds: C:\AI\custom_nodes\comfyui-q-glb-material-modifier
+   0.0 seconds: C:\AI\custom_nodes\ReLight
+   0.0 seconds: C:\AI\custom_nodes\comfyui-textoverlay
+   0.0 seconds: C:\AI\custom_nodes\image-size-tools
+   0.0 seconds: C:\AI\custom_nodes\ComfyUI-SuperScaler
+   0.0 seconds: C:\AI\custom_nodes\cg-use-everywhere
+   0.0 seconds: C:\AI\custom_nodes\comfy-asset-downloader
+   0.0 seconds: C:\AI\custom_nodes\Bobs_LoRA_Loader
+   0.0 seconds: C:\AI\custom_nodes\io-helpers
+   0.0 seconds: C:\AI\custom_nodes\sketch2manga
+   0.0 seconds: C:\AI\custom_nodes\comfyui-basic-math
+   0.0 seconds: C:\AI\custom_nodes\comfyui-pixydustquantizer
+   0.0 seconds: C:\AI\custom_nodes\layerforge
+   0.0 seconds: C:\AI\custom_nodes\cg-image-filter
+   0.0 seconds: C:\AI\custom_nodes\smartmodelloaders-mxd
+   0.0 seconds: C:\AI\custom_nodes\ComfyUI-Align
+   0.0 seconds: C:\AI\custom_nodes\comfyuidepthestimation
+   0.0 seconds: C:\AI\custom_nodes\ComfyUI-UltimateSDUpscale-GGUF
+   0.0 seconds: C:\AI\custom_nodes\comfyui-ez-af-nodes
+   0.0 seconds: C:\AI\custom_nodes\wwaa-customnodes
+   0.0 seconds: C:\AI\custom_nodes\image-resizing
+   0.0 seconds: C:\AI\custom_nodes\comfyui_colormod
+   0.0 seconds: C:\AI\custom_nodes\comfyui-vslinx-nodes
+   0.0 seconds: C:\AI\custom_nodes\nd-super-nodes
+   0.0 seconds: C:\AI\custom_nodes\comfyui-refocus
+   0.0 seconds: C:\AI\custom_nodes\comfyui_yfg_comical
+   0.0 seconds: C:\AI\custom_nodes\glitchnodes
+   0.0 seconds: C:\AI\custom_nodes\comfyui-blender
+   0.0 seconds: C:\AI\custom_nodes\ComfyUI-GGUF
+   0.0 seconds: C:\AI\custom_nodes\comfyui_stereoscopic
+   0.0 seconds: C:\AI\custom_nodes\civicomfy
+   0.0 seconds: C:\AI\custom_nodes\comfyui-nikosis-preprocessors
+   0.0 seconds: C:\AI\custom_nodes\Shima
+   0.1 seconds: C:\AI\custom_nodes\comfyui_baikong_node
+   0.1 seconds: C:\AI\custom_nodes\comfyui_controlnet_aux
+   0.1 seconds: C:\AI\custom_nodes\kaytool
+   0.1 seconds: C:\AI\custom_nodes\ComfyUI-TransparencyBackgroundRemover
+   0.1 seconds: C:\AI\custom_nodes\ComfyUI-DepthAnythingV3
+   0.5 seconds: C:\AI\custom_nodes\comfyui-fluxpromptenhancer
+   1.5 seconds: C:\AI\custom_nodes\Plush-for-ComfyUI
+   1.7 seconds: C:\AI\custom_nodes\ComfyUI-EasyColorCorrector
+   2.1 seconds: C:\AI\custom_nodes\ComfyUI-Copilot
+
+Context impl SQLiteImpl.
+Will assume non-transactional DDL.
+Assets scan(roots=['models']) completed in 0.040s (created=0, skipped_existing=101, orphans_pruned=0, total_seen=101)
+Starting server
+
+To see the GUI go to: http://127.0.0.1:8000
+FETCH ComfyRegistry Data [DONE]
+[ComfyUI-Manager] default cache updated: https://api.comfy.org/nodes
+FETCH DATA from: C:\AI\user\__manager\cache\1514988643_custom-node-list.json [DONE]
+[ComfyUI-Manager] All startup tasks have been completed.
+comfyui-frontend-package not found in requirements.txt
+--- Logging error ---
+[ComfyUI-Manager] The ComfyRegistry cache update is still in progress, so an outdated cache is being used.
+--- Logging error ---
+FETCH DATA from: C:\AI\.venv\Lib\site-packages\comfyui_manager\custom-node-list.json[[ComfyUI-Manager] Error processing bulk import fail info: [Errno 22] Invalid argument
+--- Logging error ---
+[DEPRECATION WARNING] Detected import of deprecated legacy API: /scripts/ui.js. This is likely caused by a custom node extension using outdated APIs. Please update your extensions or contact the extension author for an updated version.
+--- Logging error ---
+[DEPRECATION WARNING] Detected import of deprecated legacy API: /extensions/core/groupNode.js. This is likely caused by a custom node extension using outdated APIs. Please update your extensions or contact the extension author for an updated version.
+--- Logging error ---
+Error: No fonts found in 'C:\Users\Donen\AppData\Local\Microsoft\Windows\Fonts'.[ERROR] An error occurred while retrieving information for the 'textMaskOverlay_node' node.
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 702, in get_object_info
+    out[x] = node_info(x)
+             ^^^^^^^^^^^^
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 657, in node_info
+    info['input'] = obj_class.INPUT_TYPES()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\comfyui_yfg_comical\textMaskOverlay.py", line 26, in INPUT_TYPES
+    directory_fonts = cls.get_font_list("Directory", user_directory)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\comfyui_yfg_comical\textMaskOverlay.py", line 180, in get_font_list
+    print(f"Error: No fonts found in '{font_dir}'.")
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 310, in write
+    self.sync_write(message)
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 331, in sync_write
+    original_stdout.flush()
+  File "C:\AI\ComfyUI\resources\ComfyUI\app\logger.py", line 35, in flush
+    super().flush()
+OSError: [Errno 22] Invalid argument
+
+--- Logging error ---
+Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ConnectTimeoutError(<HTTPConnection(host='localhost', port=11434) at 0x281a4a325a0>, 'Connection to localhost timed out. (connect timeout=2)')': /api/tags
+--- Logging error ---
+[Shima] Sticker assets loaded: 45 files[ERROR] An error occurred while retrieving information for the 'Shima.Sticker' node.
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 702, in get_object_info
+    out[x] = node_info(x)
+             ^^^^^^^^^^^^
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 657, in node_info
+    info['input'] = obj_class.INPUT_TYPES()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\Shima\nodes\sticker.py", line 26, in INPUT_TYPES
+    print(f"[Shima] Sticker assets loaded: {len(files)} files")
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 310, in write
+    self.sync_write(message)
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 331, in sync_write
+    original_stdout.flush()
+  File "C:\AI\ComfyUI\resources\ComfyUI\app\logger.py", line 35, in flush
+    super().flush()
+OSError: [Errno 22] Invalid argument
+
+--- Logging error ---
+Error: No fonts found in 'C:\Users\Donen\AppData\Local\Microsoft\Windows\Fonts'.[ERROR] An error occurred while retrieving information for the 'textMaskOverlay_node' node.
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 702, in get_object_info
+    out[x] = node_info(x)
+             ^^^^^^^^^^^^
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 657, in node_info
+    info['input'] = obj_class.INPUT_TYPES()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\comfyui_yfg_comical\textMaskOverlay.py", line 26, in INPUT_TYPES
+    directory_fonts = cls.get_font_list("Directory", user_directory)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\comfyui_yfg_comical\textMaskOverlay.py", line 180, in get_font_list
+    print(f"Error: No fonts found in '{font_dir}'.")
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 310, in write
+    self.sync_write(message)
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 331, in sync_write
+    original_stdout.flush()
+  File "C:\AI\ComfyUI\resources\ComfyUI\app\logger.py", line 35, in flush
+    super().flush()
+OSError: [Errno 22] Invalid argument
+
+--- Logging error ---
+[Shima] Sticker assets loaded: 45 files[ERROR] An error occurred while retrieving information for the 'Shima.Sticker' node.
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 702, in get_object_info
+    out[x] = node_info(x)
+             ^^^^^^^^^^^^
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 657, in node_info
+    info['input'] = obj_class.INPUT_TYPES()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\Shima\nodes\sticker.py", line 26, in INPUT_TYPES
+    print(f"[Shima] Sticker assets loaded: {len(files)} files")
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 310, in write
+    self.sync_write(message)
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 331, in sync_write
+    original_stdout.flush()
+  File "C:\AI\ComfyUI\resources\ComfyUI\app\logger.py", line 35, in flush
+    super().flush()
+OSError: [Errno 22] Invalid argument
+
+--- Logging error ---
+[DEPRECATION WARNING] Detected import of deprecated legacy API: /scripts/ui/components/button.js. This is likely caused by a custom node extension using outdated APIs. Please update your extensions or contact the extension author for an updated version.
+--- Logging error ---
+comfyui-frontend-package not found in requirements.txt
+--- Logging error ---
+[ComfyUI-Manager] The ComfyRegistry cache update is still in progress, so an outdated cache is being used.
+--- Logging error ---
+FETCH DATA from: C:\AI\.venv\Lib\site-packages\comfyui_manager\custom-node-list.json[[ComfyUI-Manager] Error processing bulk import fail info: [Errno 22] Invalid argument
+--- Logging error ---
+Error: No fonts found in 'C:\Users\Donen\AppData\Local\Microsoft\Windows\Fonts'.[ERROR] An error occurred while retrieving information for the 'textMaskOverlay_node' node.
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 702, in get_object_info
+    out[x] = node_info(x)
+             ^^^^^^^^^^^^
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 657, in node_info
+    info['input'] = obj_class.INPUT_TYPES()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\comfyui_yfg_comical\textMaskOverlay.py", line 26, in INPUT_TYPES
+    directory_fonts = cls.get_font_list("Directory", user_directory)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\comfyui_yfg_comical\textMaskOverlay.py", line 180, in get_font_list
+    print(f"Error: No fonts found in '{font_dir}'.")
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 310, in write
+    self.sync_write(message)
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 331, in sync_write
+    original_stdout.flush()
+  File "C:\AI\ComfyUI\resources\ComfyUI\app\logger.py", line 35, in flush
+    super().flush()
+OSError: [Errno 22] Invalid argument
+
+--- Logging error ---
+[Shima] Sticker assets loaded: 45 files[ERROR] An error occurred while retrieving information for the 'Shima.Sticker' node.
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 702, in get_object_info
+    out[x] = node_info(x)
+             ^^^^^^^^^^^^
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 657, in node_info
+    info['input'] = obj_class.INPUT_TYPES()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\Shima\nodes\sticker.py", line 26, in INPUT_TYPES
+    print(f"[Shima] Sticker assets loaded: {len(files)} files")
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 310, in write
+    self.sync_write(message)
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 331, in sync_write
+    original_stdout.flush()
+  File "C:\AI\ComfyUI\resources\ComfyUI\app\logger.py", line 35, in flush
+    super().flush()
+OSError: [Errno 22] Invalid argument
+
+--- Logging error ---
+Error: No fonts found in 'C:\Users\Donen\AppData\Local\Microsoft\Windows\Fonts'.[ERROR] An error occurred while retrieving information for the 'textMaskOverlay_node' node.
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 702, in get_object_info
+    out[x] = node_info(x)
+             ^^^^^^^^^^^^
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 657, in node_info
+    info['input'] = obj_class.INPUT_TYPES()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\comfyui_yfg_comical\textMaskOverlay.py", line 26, in INPUT_TYPES
+    directory_fonts = cls.get_font_list("Directory", user_directory)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\comfyui_yfg_comical\textMaskOverlay.py", line 180, in get_font_list
+    print(f"Error: No fonts found in '{font_dir}'.")
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 310, in write
+    self.sync_write(message)
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 331, in sync_write
+    original_stdout.flush()
+  File "C:\AI\ComfyUI\resources\ComfyUI\app\logger.py", line 35, in flush
+    super().flush()
+OSError: [Errno 22] Invalid argument
+
+--- Logging error ---
+[Shima] Sticker assets loaded: 45 files[ERROR] An error occurred while retrieving information for the 'Shima.Sticker' node.
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 702, in get_object_info
+    out[x] = node_info(x)
+             ^^^^^^^^^^^^
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 657, in node_info
+    info['input'] = obj_class.INPUT_TYPES()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\Shima\nodes\sticker.py", line 26, in INPUT_TYPES
+    print(f"[Shima] Sticker assets loaded: {len(files)} files")
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 310, in write
+    self.sync_write(message)
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 331, in sync_write
+    original_stdout.flush()
+  File "C:\AI\ComfyUI\resources\ComfyUI\app\logger.py", line 35, in flush
+    super().flush()
+OSError: [Errno 22] Invalid argument
+
+--- Logging error ---
+comfyui-frontend-package not found in requirements.txt
+--- Logging error ---
+Error: No fonts found in 'C:\Users\Donen\AppData\Local\Microsoft\Windows\Fonts'.[ERROR] An error occurred while retrieving information for the 'textMaskOverlay_node' node.
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 702, in get_object_info
+    out[x] = node_info(x)
+             ^^^^^^^^^^^^
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 657, in node_info
+    info['input'] = obj_class.INPUT_TYPES()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\comfyui_yfg_comical\textMaskOverlay.py", line 26, in INPUT_TYPES
+    directory_fonts = cls.get_font_list("Directory", user_directory)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\comfyui_yfg_comical\textMaskOverlay.py", line 180, in get_font_list
+    print(f"Error: No fonts found in '{font_dir}'.")
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 310, in write
+    self.sync_write(message)
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 331, in sync_write
+    original_stdout.flush()
+  File "C:\AI\ComfyUI\resources\ComfyUI\app\logger.py", line 35, in flush
+    super().flush()
+OSError: [Errno 22] Invalid argument
+
+--- Logging error ---
+[Shima] Sticker assets loaded: 45 files[ERROR] An error occurred while retrieving information for the 'Shima.Sticker' node.
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 702, in get_object_info
+    out[x] = node_info(x)
+             ^^^^^^^^^^^^
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 657, in node_info
+    info['input'] = obj_class.INPUT_TYPES()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\Shima\nodes\sticker.py", line 26, in INPUT_TYPES
+    print(f"[Shima] Sticker assets loaded: {len(files)} files")
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 310, in write
+    self.sync_write(message)
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 331, in sync_write
+    original_stdout.flush()
+  File "C:\AI\ComfyUI\resources\ComfyUI\app\logger.py", line 35, in flush
+    super().flush()
+OSError: [Errno 22] Invalid argument
+
+--- Logging error ---
+Error: No fonts found in 'C:\Users\Donen\AppData\Local\Microsoft\Windows\Fonts'.[ERROR] An error occurred while retrieving information for the 'textMaskOverlay_node' node.
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 702, in get_object_info
+    out[x] = node_info(x)
+             ^^^^^^^^^^^^
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 657, in node_info
+    info['input'] = obj_class.INPUT_TYPES()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\comfyui_yfg_comical\textMaskOverlay.py", line 26, in INPUT_TYPES
+    directory_fonts = cls.get_font_list("Directory", user_directory)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\comfyui_yfg_comical\textMaskOverlay.py", line 180, in get_font_list
+    print(f"Error: No fonts found in '{font_dir}'.")
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 310, in write
+    self.sync_write(message)
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 331, in sync_write
+    original_stdout.flush()
+  File "C:\AI\ComfyUI\resources\ComfyUI\app\logger.py", line 35, in flush
+    super().flush()
+OSError: [Errno 22] Invalid argument
+
+--- Logging error ---
+[Shima] Sticker assets loaded: 45 files[ERROR] An error occurred while retrieving information for the 'Shima.Sticker' node.
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 702, in get_object_info
+    out[x] = node_info(x)
+             ^^^^^^^^^^^^
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 657, in node_info
+    info['input'] = obj_class.INPUT_TYPES()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\Shima\nodes\sticker.py", line 26, in INPUT_TYPES
+    print(f"[Shima] Sticker assets loaded: {len(files)} files")
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 310, in write
+    self.sync_write(message)
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 331, in sync_write
+    original_stdout.flush()
+  File "C:\AI\ComfyUI\resources\ComfyUI\app\logger.py", line 35, in flush
+    super().flush()
+OSError: [Errno 22] Invalid argument
+
+--- Logging error ---
+[ComfyUI-Manager] The ComfyRegistry cache update is still in progress, so an outdated cache is being used.
+--- Logging error ---
+FETCH DATA from: C:\AI\.venv\Lib\site-packages\comfyui_manager\custom-node-list.json[[ComfyUI-Manager] Error processing bulk import fail info: [Errno 22] Invalid argument
+--- Logging error ---
+comfyui-frontend-package not found in requirements.txt
+--- Logging error ---
+Error: No fonts found in 'C:\Users\Donen\AppData\Local\Microsoft\Windows\Fonts'.[ERROR] An error occurred while retrieving information for the 'textMaskOverlay_node' node.
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 702, in get_object_info
+    out[x] = node_info(x)
+             ^^^^^^^^^^^^
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 657, in node_info
+    info['input'] = obj_class.INPUT_TYPES()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\comfyui_yfg_comical\textMaskOverlay.py", line 26, in INPUT_TYPES
+    directory_fonts = cls.get_font_list("Directory", user_directory)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\comfyui_yfg_comical\textMaskOverlay.py", line 180, in get_font_list
+    print(f"Error: No fonts found in '{font_dir}'.")
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 310, in write
+    self.sync_write(message)
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 331, in sync_write
+    original_stdout.flush()
+  File "C:\AI\ComfyUI\resources\ComfyUI\app\logger.py", line 35, in flush
+    super().flush()
+OSError: [Errno 22] Invalid argument
+
+--- Logging error ---
+[Shima] Sticker assets loaded: 45 files[ERROR] An error occurred while retrieving information for the 'Shima.Sticker' node.
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 702, in get_object_info
+    out[x] = node_info(x)
+             ^^^^^^^^^^^^
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 657, in node_info
+    info['input'] = obj_class.INPUT_TYPES()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\Shima\nodes\sticker.py", line 26, in INPUT_TYPES
+    print(f"[Shima] Sticker assets loaded: {len(files)} files")
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 310, in write
+    self.sync_write(message)
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 331, in sync_write
+    original_stdout.flush()
+  File "C:\AI\ComfyUI\resources\ComfyUI\app\logger.py", line 35, in flush
+    super().flush()
+OSError: [Errno 22] Invalid argument
+
+--- Logging error ---
+Error: No fonts found in 'C:\Users\Donen\AppData\Local\Microsoft\Windows\Fonts'.[ERROR] An error occurred while retrieving information for the 'textMaskOverlay_node' node.
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 702, in get_object_info
+    out[x] = node_info(x)
+             ^^^^^^^^^^^^
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 657, in node_info
+    info['input'] = obj_class.INPUT_TYPES()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\comfyui_yfg_comical\textMaskOverlay.py", line 26, in INPUT_TYPES
+    directory_fonts = cls.get_font_list("Directory", user_directory)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\comfyui_yfg_comical\textMaskOverlay.py", line 180, in get_font_list
+    print(f"Error: No fonts found in '{font_dir}'.")
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 310, in write
+    self.sync_write(message)
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 331, in sync_write
+    original_stdout.flush()
+  File "C:\AI\ComfyUI\resources\ComfyUI\app\logger.py", line 35, in flush
+    super().flush()
+OSError: [Errno 22] Invalid argument
+
+--- Logging error ---
+[Shima] Sticker assets loaded: 45 files[ERROR] An error occurred while retrieving information for the 'Shima.Sticker' node.
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 702, in get_object_info
+    out[x] = node_info(x)
+             ^^^^^^^^^^^^
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 657, in node_info
+    info['input'] = obj_class.INPUT_TYPES()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\Shima\nodes\sticker.py", line 26, in INPUT_TYPES
+    print(f"[Shima] Sticker assets loaded: {len(files)} files")
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 310, in write
+    self.sync_write(message)
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 331, in sync_write
+    original_stdout.flush()
+  File "C:\AI\ComfyUI\resources\ComfyUI\app\logger.py", line 35, in flush
+    super().flush()
+OSError: [Errno 22] Invalid argument
+
+--- Logging error ---
+[ComfyUI-Manager] The ComfyRegistry cache update is still in progress, so an outdated cache is being used.
+--- Logging error ---
+FETCH DATA from: C:\AI\.venv\Lib\site-packages\comfyui_manager\custom-node-list.json[[ComfyUI-Manager] Error processing bulk import fail info: [Errno 22] Invalid argument
+--- Logging error ---
+Exception in callback _ProactorBasePipeTransport._call_connection_lost(None)
+handle: <Handle _ProactorBasePipeTransport._call_connection_lost(None)>
+Traceback (most recent call last):
+  File "C:\Users\Donen\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\events.py", line 88, in _run
+    self._context.run(self._callback, *self._args)
+  File "C:\Users\Donen\AppData\Roaming\uv\python\cpython-3.12.11-windows-x86_64-none\Lib\asyncio\proactor_events.py", line 165, in _call_connection_lost
+    self._sock.shutdown(socket.SHUT_RDWR)
+ConnectionResetError: [WinError 10054] An existing connection was forcibly closed by the remote host
+--- Logging error ---
+comfyui-frontend-package not found in requirements.txt
+--- Logging error ---
+Error: No fonts found in 'C:\Users\Donen\AppData\Local\Microsoft\Windows\Fonts'.[ERROR] An error occurred while retrieving information for the 'textMaskOverlay_node' node.
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 702, in get_object_info
+    out[x] = node_info(x)
+             ^^^^^^^^^^^^
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 657, in node_info
+    info['input'] = obj_class.INPUT_TYPES()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\comfyui_yfg_comical\textMaskOverlay.py", line 26, in INPUT_TYPES
+    directory_fonts = cls.get_font_list("Directory", user_directory)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\comfyui_yfg_comical\textMaskOverlay.py", line 180, in get_font_list
+    print(f"Error: No fonts found in '{font_dir}'.")
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 310, in write
+    self.sync_write(message)
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 331, in sync_write
+    original_stdout.flush()
+  File "C:\AI\ComfyUI\resources\ComfyUI\app\logger.py", line 35, in flush
+    super().flush()
+OSError: [Errno 22] Invalid argument
+
+--- Logging error ---
+[Shima] Sticker assets loaded: 45 files[ERROR] An error occurred while retrieving information for the 'Shima.Sticker' node.
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 702, in get_object_info
+    out[x] = node_info(x)
+             ^^^^^^^^^^^^
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 657, in node_info
+    info['input'] = obj_class.INPUT_TYPES()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\Shima\nodes\sticker.py", line 26, in INPUT_TYPES
+    print(f"[Shima] Sticker assets loaded: {len(files)} files")
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 310, in write
+    self.sync_write(message)
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 331, in sync_write
+    original_stdout.flush()
+  File "C:\AI\ComfyUI\resources\ComfyUI\app\logger.py", line 35, in flush
+    super().flush()
+OSError: [Errno 22] Invalid argument
+
+--- Logging error ---
+Error: No fonts found in 'C:\Users\Donen\AppData\Local\Microsoft\Windows\Fonts'.[ERROR] An error occurred while retrieving information for the 'textMaskOverlay_node' node.
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 702, in get_object_info
+    out[x] = node_info(x)
+             ^^^^^^^^^^^^
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 657, in node_info
+    info['input'] = obj_class.INPUT_TYPES()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\comfyui_yfg_comical\textMaskOverlay.py", line 26, in INPUT_TYPES
+    directory_fonts = cls.get_font_list("Directory", user_directory)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\comfyui_yfg_comical\textMaskOverlay.py", line 180, in get_font_list
+    print(f"Error: No fonts found in '{font_dir}'.")
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 310, in write
+    self.sync_write(message)
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 331, in sync_write
+    original_stdout.flush()
+  File "C:\AI\ComfyUI\resources\ComfyUI\app\logger.py", line 35, in flush
+    super().flush()
+OSError: [Errno 22] Invalid argument
+
+--- Logging error ---
+[Shima] Sticker assets loaded: 45 files[ERROR] An error occurred while retrieving information for the 'Shima.Sticker' node.
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 702, in get_object_info
+    out[x] = node_info(x)
+             ^^^^^^^^^^^^
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 657, in node_info
+    info['input'] = obj_class.INPUT_TYPES()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\Shima\nodes\sticker.py", line 26, in INPUT_TYPES
+    print(f"[Shima] Sticker assets loaded: {len(files)} files")
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 310, in write
+    self.sync_write(message)
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 331, in sync_write
+    original_stdout.flush()
+  File "C:\AI\ComfyUI\resources\ComfyUI\app\logger.py", line 35, in flush
+    super().flush()
+OSError: [Errno 22] Invalid argument
+
+--- Logging error ---
+[ComfyUI-Manager] The ComfyRegistry cache update is still in progress, so an outdated cache is being used.
+--- Logging error ---
+FETCH DATA from: C:\AI\.venv\Lib\site-packages\comfyui_manager\custom-node-list.json[[ComfyUI-Manager] Error processing bulk import fail info: [Errno 22] Invalid argument
+--- Logging error ---
+comfyui-frontend-package not found in requirements.txt
+--- Logging error ---
+Error: No fonts found in 'C:\Users\Donen\AppData\Local\Microsoft\Windows\Fonts'.[ERROR] An error occurred while retrieving information for the 'textMaskOverlay_node' node.
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 702, in get_object_info
+    out[x] = node_info(x)
+             ^^^^^^^^^^^^
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 657, in node_info
+    info['input'] = obj_class.INPUT_TYPES()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\comfyui_yfg_comical\textMaskOverlay.py", line 26, in INPUT_TYPES
+    directory_fonts = cls.get_font_list("Directory", user_directory)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\comfyui_yfg_comical\textMaskOverlay.py", line 180, in get_font_list
+    print(f"Error: No fonts found in '{font_dir}'.")
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 310, in write
+    self.sync_write(message)
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 331, in sync_write
+    original_stdout.flush()
+  File "C:\AI\ComfyUI\resources\ComfyUI\app\logger.py", line 35, in flush
+    super().flush()
+OSError: [Errno 22] Invalid argument
+
+--- Logging error ---
+[Shima] Sticker assets loaded: 45 files[ERROR] An error occurred while retrieving information for the 'Shima.Sticker' node.
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 702, in get_object_info
+    out[x] = node_info(x)
+             ^^^^^^^^^^^^
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 657, in node_info
+    info['input'] = obj_class.INPUT_TYPES()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\Shima\nodes\sticker.py", line 26, in INPUT_TYPES
+    print(f"[Shima] Sticker assets loaded: {len(files)} files")
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 310, in write
+    self.sync_write(message)
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 331, in sync_write
+    original_stdout.flush()
+  File "C:\AI\ComfyUI\resources\ComfyUI\app\logger.py", line 35, in flush
+    super().flush()
+OSError: [Errno 22] Invalid argument
+
+--- Logging error ---
+Error: No fonts found in 'C:\Users\Donen\AppData\Local\Microsoft\Windows\Fonts'.[ERROR] An error occurred while retrieving information for the 'textMaskOverlay_node' node.
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 702, in get_object_info
+    out[x] = node_info(x)
+             ^^^^^^^^^^^^
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 657, in node_info
+    info['input'] = obj_class.INPUT_TYPES()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\comfyui_yfg_comical\textMaskOverlay.py", line 26, in INPUT_TYPES
+    directory_fonts = cls.get_font_list("Directory", user_directory)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\comfyui_yfg_comical\textMaskOverlay.py", line 180, in get_font_list
+    print(f"Error: No fonts found in '{font_dir}'.")
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 310, in write
+    self.sync_write(message)
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 331, in sync_write
+    original_stdout.flush()
+  File "C:\AI\ComfyUI\resources\ComfyUI\app\logger.py", line 35, in flush
+    super().flush()
+OSError: [Errno 22] Invalid argument
+
+--- Logging error ---
+[Shima] Sticker assets loaded: 45 files[ERROR] An error occurred while retrieving information for the 'Shima.Sticker' node.
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 702, in get_object_info
+    out[x] = node_info(x)
+             ^^^^^^^^^^^^
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 657, in node_info
+    info['input'] = obj_class.INPUT_TYPES()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\Shima\nodes\sticker.py", line 26, in INPUT_TYPES
+    print(f"[Shima] Sticker assets loaded: {len(files)} files")
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 310, in write
+    self.sync_write(message)
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 331, in sync_write
+    original_stdout.flush()
+  File "C:\AI\ComfyUI\resources\ComfyUI\app\logger.py", line 35, in flush
+    super().flush()
+OSError: [Errno 22] Invalid argument
+
+--- Logging error ---
+[ComfyUI-Manager] The ComfyRegistry cache update is still in progress, so an outdated cache is being used.
+--- Logging error ---
+FETCH DATA from: C:\AI\.venv\Lib\site-packages\comfyui_manager\custom-node-list.json[[ComfyUI-Manager] Error processing bulk import fail info: [Errno 22] Invalid argument
+--- Logging error ---
+got prompt
+--- Logging error ---
+Error handling request from 127.0.0.1
+Traceback (most recent call last):
+  File "C:\AI\.venv\Lib\site-packages\aiohttp\web_protocol.py", line 510, in _handle_request
+    resp = await request_handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\.venv\Lib\site-packages\aiohttp\web_app.py", line 569, in _handle
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\.venv\Lib\site-packages\aiohttp\web_middlewares.py", line 117, in impl
+    return await handler(request)
+           ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\ComfyUI\resources\ComfyUI\middleware\cache_middleware.py", line 27, in cache_control
+    response: web.Response = await handler(request)
+                             ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 83, in deprecation_warning
+    response: web.Response = await handler(request)
+                             ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 173, in origin_only_middleware
+    response = await handler(request)
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\__init__.py", line 100, in manager_middleware
+    response: web.Response = await handler(request)
+                             ^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 890, in post_prompt
+    valid = await execution.validate_prompt(prompt_id, prompt, partial_execution_targets)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\comfyui-floodgate\__init__.py", line 101, in hijack_validate
+    gate_IDs: list = find_gate(prompt)
+                     ^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\comfyui-floodgate\__init__.py", line 15, in find_gate
+    if v["class_type"] == "FloodGate":
+       ~^^^^^^^^^^^^^^
+KeyError: 'class_type'
+--- Logging error ---
+comfyui-frontend-package not found in requirements.txt
+--- Logging error ---
+Error: No fonts found in 'C:\Users\Donen\AppData\Local\Microsoft\Windows\Fonts'.[ERROR] An error occurred while retrieving information for the 'textMaskOverlay_node' node.
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 702, in get_object_info
+    out[x] = node_info(x)
+             ^^^^^^^^^^^^
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 657, in node_info
+    info['input'] = obj_class.INPUT_TYPES()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\comfyui_yfg_comical\textMaskOverlay.py", line 26, in INPUT_TYPES
+    directory_fonts = cls.get_font_list("Directory", user_directory)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\comfyui_yfg_comical\textMaskOverlay.py", line 180, in get_font_list
+    print(f"Error: No fonts found in '{font_dir}'.")
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 310, in write
+    self.sync_write(message)
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 331, in sync_write
+    original_stdout.flush()
+  File "C:\AI\ComfyUI\resources\ComfyUI\app\logger.py", line 35, in flush
+    super().flush()
+OSError: [Errno 22] Invalid argument
+
+--- Logging error ---
+[Shima] Sticker assets loaded: 45 files[ERROR] An error occurred while retrieving information for the 'Shima.Sticker' node.
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 702, in get_object_info
+    out[x] = node_info(x)
+             ^^^^^^^^^^^^
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 657, in node_info
+    info['input'] = obj_class.INPUT_TYPES()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\Shima\nodes\sticker.py", line 26, in INPUT_TYPES
+    print(f"[Shima] Sticker assets loaded: {len(files)} files")
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 310, in write
+    self.sync_write(message)
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 331, in sync_write
+    original_stdout.flush()
+  File "C:\AI\ComfyUI\resources\ComfyUI\app\logger.py", line 35, in flush
+    super().flush()
+OSError: [Errno 22] Invalid argument
+
+--- Logging error ---
+Error: No fonts found in 'C:\Users\Donen\AppData\Local\Microsoft\Windows\Fonts'.[ERROR] An error occurred while retrieving information for the 'textMaskOverlay_node' node.
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 702, in get_object_info
+    out[x] = node_info(x)
+             ^^^^^^^^^^^^
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 657, in node_info
+    info['input'] = obj_class.INPUT_TYPES()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\comfyui_yfg_comical\textMaskOverlay.py", line 26, in INPUT_TYPES
+    directory_fonts = cls.get_font_list("Directory", user_directory)
+                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\comfyui_yfg_comical\textMaskOverlay.py", line 180, in get_font_list
+    print(f"Error: No fonts found in '{font_dir}'.")
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 310, in write
+    self.sync_write(message)
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 331, in sync_write
+    original_stdout.flush()
+  File "C:\AI\ComfyUI\resources\ComfyUI\app\logger.py", line 35, in flush
+    super().flush()
+OSError: [Errno 22] Invalid argument
+
+--- Logging error ---
+[Shima] Sticker assets loaded: 45 files[ERROR] An error occurred while retrieving information for the 'Shima.Sticker' node.
+--- Logging error ---
+Traceback (most recent call last):
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 702, in get_object_info
+    out[x] = node_info(x)
+             ^^^^^^^^^^^^
+  File "C:\AI\ComfyUI\resources\ComfyUI\server.py", line 657, in node_info
+    info['input'] = obj_class.INPUT_TYPES()
+                    ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\AI\custom_nodes\Shima\nodes\sticker.py", line 26, in INPUT_TYPES
+    print(f"[Shima] Sticker assets loaded: {len(files)} files")
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 310, in write
+    self.sync_write(message)
+  File "C:\AI\.venv\Lib\site-packages\comfyui_manager\prestartup_script.py", line 331, in sync_write
+    original_stdout.flush()
+  File "C:\AI\ComfyUI\resources\ComfyUI\app\logger.py", line 35, in flush
+    super().flush()
+OSError: [Errno 22] Invalid argument
+
+--- Logging error ---
+[ComfyUI-Manager] The ComfyRegistry cache update is still in progress, so an outdated cache is being used.
+--- Logging error ---
+FETCH DATA from: C:\AI\.venv\Lib\site-packages\comfyui_manager\custom-node-list.json[[ComfyUI-Manager] Error processing bulk import fail info: [Errno 22] Invalid argument
+--- Logging error ---

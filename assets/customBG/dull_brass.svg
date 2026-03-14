@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_2" data-name="Layer 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 515.33 525">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#Dull_Brass);
+      }
+    </style>
+    <linearGradient id="Dull_Brass" data-name="Dull Brass" x1="5.24" y1="14.63" x2="499.6" y2="500.07" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#ebc17d"/>
+      <stop offset=".19" stop-color="#dfb77c"/>
+      <stop offset=".6" stop-color="#c08329"/>
+      <stop offset=".87" stop-color="#eabe81"/>
+      <stop offset="1" stop-color="#eedcc3"/>
+    </linearGradient>
+  </defs>
+  <g id="Layer_1-2" data-name="Layer 1">
+    <rect class="cls-1" x="0" width="515.33" height="525" rx="21.3" ry="21.3"/>
+  </g>
+</svg>
