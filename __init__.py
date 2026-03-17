@@ -20,6 +20,26 @@ import time
 import requests
 from typing import Dict, Any, List, Optional, Set, Union, cast
 
+# ============================================================================
+# SHIMA BRANDING & DEPENDENCY CHECK
+# ============================================================================
+SHIMA_BANNER = r"""
+  _________  ___  _________  ________      
+ /   _____/ /   | \_____   \ \_____  \     
+ \_____  \ /    |  /|     _/  /   |   \    
+ /        /    /|  \|    |   /    |    \   
+/_______  \____ |__||____|_  \____|__  /   
+        \/     \/          \/        \/    
+                                           
+ >>> SHIMA WORKFLOW ISLANDS v2.0.1 <<<
+ ------------------------------------------
+ OPTIMIZED FOR:
+  + Use Everywhere (Bus/Auto-Connect)
+  + Impact Pack    (Logic/SEGs)
+ ------------------------------------------
+"""
+print(SHIMA_BANNER)
+
 # Auto-install dependencies
 def ensure_package(package_name, install_name=None):
     if install_name is None:
