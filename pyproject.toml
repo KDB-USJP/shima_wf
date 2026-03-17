@@ -8,7 +8,7 @@ authors = [
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
-keywords = ["comfyui", "workflow", "marketplace", "ai", "image-generation", "shima"]
+keywords = ["workflow", "marketplace", "ai", "image-generation", "shima", "styler", "segs", "batch-processing", "bus-routing", "node-management", "controlnet"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Developers",
@@ -39,7 +39,6 @@ where = ["."]
 PublisherId = "kdb"
 DisplayName = "Shima"
 Description = "Shima - ComfyUI Workflow Creation and Sharing System"
-Tags = ["workflow", "marketplace", "ai", "image-generation", "shima", "styler", "segs", "batch-processing", "bus-routing", "node-management", "controlnet"]
 Icon = "https://www.shima.wf/shima-square-logo-text.png"
 Website = "https://shima.wf"
 Repository = "https://github.com/KDB-USJP/shima_wf"
