@@ -46,8 +46,8 @@ $allowedFiles = @(
 foreach ($dir in $allowedDirs) {
     if (Test-Path "$src\$dir") {
         Write-Host "Syncing folder: $dir..."
-        # EXCLUDE: backups, disabled files, internal spreadsheets, test scripts, and specific accidental files
-        robocopy "$src\$dir" "$dst\$dir" /MIR /NFL /NDL /NJH /NJS /NP /XD .git .github __pycache__ .agents /XF *.backup *.DISABLED *.disabled shima_sheets_working_copy.xlsx shima.wired_xl.base.json test_*.py
+        # EXCLUDE: backups, disabled files, internal spreadsheets, test scripts, and agent/brain artifacts
+        robocopy "$src\$dir" "$dst\$dir" /MIR /NFL /NDL /NJH /NJS /NP /XD .git .github __pycache__ .agents .gemini brain .system_generated /XF *.backup *.DISABLED *.disabled shima_sheets_working_copy.xlsx shima.wired_xl.base.json test_*.py
     }
 }
 
