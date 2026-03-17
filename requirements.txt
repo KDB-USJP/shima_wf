@@ -1,7 +1,4 @@
 # Shima Dependencies
 # Most dependencies are provided by ComfyUI itself
-comfyui-use-everywhere
-comfyui-impact-pack
-comfyui-impact-subpack
 aiohttp>=3.8.0
 requests>=2.28.0

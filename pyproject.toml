@@ -1,6 +1,6 @@
 [project]
 name = "comfyui-shima_wf"
-version = "2.0.0"
+version = "2.0.1"
 description = "Shima - ComfyUI Workflow Creation and Sharing System"
 authors = [
     { name = "KDB-USJP", email = "info@kyoseigk.com" }
@@ -18,9 +18,6 @@ classifiers = [
     "Programming Language :: Python :: 3.12",
 ]
 dependencies = [
-    "comfyui-use-everywhere",
-    "comfyui-impact-pack",
-    "comfyui-impact-subpack"
 ]
 
 [project.urls]
@@ -38,7 +35,7 @@ where = ["."]
 [tool.comfy]
 PublisherId = "kdb"
 DisplayName = "Shima"
-Description = "Shima - ComfyUI Workflow Creation and Sharing System"
+Description = "Shima - ComfyUI Workflow Creation and Sharing System (Recommended: Impact Pack, Use Everywhere)"
 Icon = "https://www.shima.wf/shima-square-logo-text.png"
 Website = "https://shima.wf"
 Repository = "https://github.com/KDB-USJP/shima_wf"
