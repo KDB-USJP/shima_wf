@@ -1,6 +1,6 @@
 [project]
 name = "comfyui-shima_wf"
-version = "2.0.2"
+version = "2.0.3"
 description = "Shima - ComfyUI Workflow Creation and Sharing System"
 authors = [
     { name = "KDB-USJP", email = "info@kyoseigk.com" }
