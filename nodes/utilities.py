@@ -682,12 +682,8 @@ class ShimaRGBIndicator:
     CATEGORY = "Shima/System"
 
     def execute(self, r_color, g_color, b_color, r_eval, g_eval, b_eval, trigger_type, scale=1.0, hw_sync_state="false,false,false", r_in=None, g_in=None, b_in=None):
-        r_state = False
-        g_state = False
-        b_state = False
-        val_r = ""
-        val_g = ""
-        val_b = ""
+        r_state = False; g_state = False; b_state = False
+        val_r = ""; val_g = ""; val_b = ""
 
         if trigger_type == "Boolean":
             def eval_bool(v_in, v_eval):

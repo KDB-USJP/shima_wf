@@ -67,6 +67,13 @@ class ShimaPanelBNDLer:
                 "upscale_denoise": ("FLOAT", {"forceInput": True}),
                 "upscale_steps": ("INT", {"forceInput": True}),
                 "upscale_cfg": ("FLOAT", {"forceInput": True}),
+                
+                # --- CONTROL AGENT ---
+                "====== CTRL ======": ("*", {"forceInput": True}),
+                "control_type": (["canny", "depth", "pose", "lineart", "scribble", "color"], {"forceInput": True}),
+                "strength": ("FLOAT", {"forceInput": True}),
+                "fit_method": (["crop to fit", "pad to fit", "stretch"], {"forceInput": True}),
+                "bypass_preprocessing": ("BOOLEAN", {"forceInput": True}),
             }
         }
 

@@ -377,6 +377,9 @@ app.registerExtension({
                 "string_1", "string_2", "string_3", "string_4"
             ]);
         }
+        if (node.comfyClass === "Shima.ControlAgent" || node.comfyClass === "Shima.PanelControlAgent") {
+            disableUEForInputs(node, ["image"]);
+        }
         if (node.comfyClass === "Shima.RichDisplay") {
             disableUEForInputs(node, ["title_override"]);
         }

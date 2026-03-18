@@ -100,6 +100,12 @@ class ShimaMasterPrompt:
             flux_guidance = panelinputs.get("flux_guidance", kwargs.get("flux_guidance", 3.5))
             lumina_sysprompt = panelinputs.get("lumina_sysprompt", kwargs.get("lumina_sysprompt", ""))
             
+            # Architecture Overrides
+            model_type = panelinputs.get("model_type", model_type)
+            # Support both keys just in case
+            if "filter_by_model_type" in panelinputs:
+                model_type = panelinputs["filter_by_model_type"]
+
             # Explicitly pack back into kwargs for any downstream access
             kwargs["flux_guidance"] = flux_guidance
             kwargs["lumina_sysprompt"] = lumina_sysprompt
@@ -142,6 +148,35 @@ class ShimaMasterPrompt:
             
         final_model_type = final_model_type.lower().strip()
         print(f"[ShimaMasterPrompt] Encoding for: {final_model_type}")
+
+        # --- FRIENDLY ARCHITECTURE VALIDATION ---
+        try:
+            # Detect model intent
+            is_sdxl_mode = any(x in final_model_type for x in ["sdxl", "pony", "illustrious", "auraflow", "hunyuan"])
+            is_flux_mode = any(x in final_model_type for x in ["flux", "chroma"])
+            is_sd3_mode = any(x in final_model_type for x in ["sd3", "hidream"])
+            
+            # Detect clip architecture
+            clip_type = "sd1.5" # Default
+            if hasattr(clip.cond_stage_model, "clip_l") and hasattr(clip.cond_stage_model, "clip_g"):
+                clip_type = "sdxl"
+            elif hasattr(clip.cond_stage_model, "t5xxl"):
+                clip_type = "flux/sd3"
+            
+            # Check for mismatches
+            mismatch = False
+            if is_sdxl_mode and clip_type != "sdxl": mismatch = True
+            elif is_flux_mode and clip_type != "flux/sd3": mismatch = True
+            elif is_sd3_mode and clip_type != "flux/sd3": mismatch = True
+            elif final_model_type == "sd1.5" and clip_type != "sd1.5": mismatch = True
+            
+            if mismatch:
+                 raise ValueError(f"Shima: Architecture Mismatch! Your Shima Model Type is set to ({final_model_type.upper()}) but your connected model/CLIP is ({clip_type.upper()}). Please ensure your Shima settings match the model and controlnets you are using!")
+        except ValueError as ve:
+            raise ve
+        except Exception as e:
+            # Silent fallback if attribute checks fail on future Comfy versions
+            print(f"[ShimaMasterPrompt] Architecture validation skipped: {e}")
 
         # Auto-prepend Lumina2 system prompt
         if final_model_type == "lumina2":
@@ -347,6 +382,7 @@ class ShimaPanelMasterPrompt(ShimaMasterPrompt):
     Panelized variant of ShimaMasterPrompt.
     Frontend Javascript hides all native widgets and renders a sleek PCB chassis + double-click HTML modal.
     """
+    FUNCTION = "encode"
     CATEGORY = "Shima/Panels"
     RETURN_TYPES = ("CONDITIONING", "CONDITIONING", "VAE", "BNDL")
     RETURN_NAMES = ("positive", "negative", "vae", "masterprompt.bndl")

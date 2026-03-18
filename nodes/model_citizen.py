@@ -189,6 +189,7 @@ class ShimaPanelModelCitizen(ShimaModelCitizen):
     Panelized variant of ShimaModelCitizen.
     Frontend Javascript hides all native widgets and renders a sleek PCB chassis + double-click HTML modal.
     """
+    FUNCTION = "load_stack"
     CATEGORY = "Shima/Panels"
     RETURN_TYPES = ("MODEL", "CLIP", "VAE", "BNDL")
     RETURN_NAMES = ("MODEL", "CLIP", "VAE", "modelcitizen.bndl")

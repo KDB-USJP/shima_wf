@@ -1,29 +1,27 @@
 [project]
-name = "comfyui-shima_wf"
+name = "comfyui-shima"
 version = "2.0.3"
-description = "Shima - ComfyUI Workflow Creation and Sharing System"
+description = "Shima - ComfyUI Workflow Island Marketplace"
 authors = [
-    { name = "KDB-USJP", email = "info@kyoseigk.com" }
+    { name = "Aegisflow", email = "contact@shima.wf" }
 ]
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "MIT" }
-keywords = ["workflow", "marketplace", "ai", "image-generation", "shima", "styler", "segs", "batch-processing", "bus-routing", "node-management", "controlnet"]
+keywords = ["comfyui", "workflow", "marketplace", "ai", "image-generation"]
 classifiers = [
-    "Development Status :: 4 - Beta",
+    "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
     "License :: OSI Approved :: MIT License",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
 ]
-dependencies = [
-]
 
 [project.urls]
 Homepage = "https://shima.wf"
-Repository = "https://github.com/KDB-USJP/shima_wf"
-Documentation = "https://github.com/KDB-USJP/shima_wf/tree/main/docs"
+Repository = "https://github.com/KDB-USJP/Shima"
+Documentation = "https://github.com/KDB-USJP/Shima/tree/main/docs"
 
 [build-system]
 requires = ["setuptools>=61.0"]
@@ -31,13 +29,3 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
 where = ["."]
-
-[tool.comfy]
-PublisherId = "kdb"
-DisplayName = "Shima"
-Description = "Shima - ComfyUI Workflow Creation and Sharing System (Recommended: Impact Pack, Use Everywhere)"
-Icon = "https://www.shima.wf/shima-square-logo-text.png"
-Website = "https://shima.wf"
-Repository = "https://github.com/KDB-USJP/shima_wf"
-Documentation = "https://github.com/KDB-USJP/shima_wf/tree/main/docs"
-License = "MIT"

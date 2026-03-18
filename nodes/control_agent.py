@@ -31,8 +31,12 @@ class ShimaControlAgent:
             },
             "optional": {
                 "shima.commonparams": ("DICT", {"forceInput": True, "tooltip": "Provides the target latent resolution for auto-sizing."}),
-                "modelcitizen": ("BNDL", {"forceInput": True, "tooltip": "Fallback bundle to parse commonparams if direct commonparams are unavailable."}),
+                "modelcitizen.bndl": ("BNDL", {"forceInput": True, "tooltip": "Fallback bundle to parse commonparams if direct commonparams are unavailable."}),
                 "shima.controlbus": ("LIST", {"forceInput": True, "tooltip": "Daisy-chain previous ControlAgents here."}),
+                
+                "use_commonparams": ("BOOLEAN", {"default": True, "tooltip": "If True, use target resolutions from Shima.Commons or ModelCitizen."}),
+                "allow_external_linking": ("BOOLEAN", {"default": False, "tooltip": "Allow connections outside the Island"}),
+                "panelinputs.bndl": ("BNDL", {"forceInput": True, "tooltip": "Overrides panel settings using an external PanelBNDLer node"}),
             }
         }
 
@@ -41,17 +45,27 @@ class ShimaControlAgent:
     FUNCTION = "apply_control"
     CATEGORY = "Shima/ControlNet"
 
-    def apply_control(self, image, control_type, strength, fit_method, bypass_preprocessing=False, **kwargs):
+    def apply_control(self, image, control_type, strength, fit_method, bypass_preprocessing=False, use_commonparams=True, **kwargs):
+        # 0. Intercept PanelInputs overrides
+        panelinputs = kwargs.get("panelinputs.bndl")
+        if panelinputs:
+            control_type = panelinputs.get("control_type", control_type)
+            strength = panelinputs.get("strength", strength)
+            fit_method = panelinputs.get("fit_method", fit_method)
+            bypass_preprocessing = panelinputs.get("bypass_preprocessing", bypass_preprocessing)
+
         # 1. Resolve Target Dimensions
         target_w, target_h = 1024, 1024 # Safest fallback
         
-        # Look for explicit commonparams first
-        common_params = kwargs.get("shima.commonparams", {})
-        
-        if not common_params:
-             mc_bndl = kwargs.get("modelcitizen", {})
-             if mc_bndl and mc_bndl.get("bndl_type") == "modelcitizen":
-                 common_params = mc_bndl.get("shima.commonparams", {})
+        # Look for explicit commonparams first (if not disabled by switch)
+        common_params = {}
+        if use_commonparams:
+            common_params = kwargs.get("shima.commonparams", {})
+            
+            if not common_params:
+                 mc_bndl = kwargs.get("modelcitizen.bndl", {})
+                 if mc_bndl and mc_bndl.get("bndl_type") == "modelcitizen":
+                     common_params = mc_bndl.get("shima.commonparams", {})
         
         if common_params:
             target_w = common_params.get("width", target_w)
@@ -207,6 +221,7 @@ class ShimaPanelControlAgent(ShimaControlAgent):
     Panelized variant of ShimaControlAgent.
     Frontend Javascript hides all native widgets and renders a sleek PCB chassis + double-click HTML modal.
     """
+    FUNCTION = "apply_control"
     CATEGORY = "Shima/Panels"
 
 NODE_CLASS_MAPPINGS = {

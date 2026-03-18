@@ -247,7 +247,7 @@ app.registerExtension({
                 if (nodeData.name === "Shima.PanelModelCitizen") { defaultTitle = "Model Citizen"; defaultH = 285; }
                 else if (nodeData.name === "Shima.PanelLatentMaker") { defaultTitle = "Latent Maker"; defaultH = 215; }
                 else if (nodeData.name === "Shima.PanelMasterPrompt") { defaultTitle = "Master Prompt"; defaultH = 255; }
-                else if (nodeData.name === "Shima.PanelControlAgent") { defaultTitle = "Control Agent"; defaultH = 260; }
+                else if (nodeData.name === "Shima.PanelControlAgent") { defaultTitle = "Control Agent"; defaultH = 310; }
 
                 this.properties.panel_title = defaultTitle;
 
@@ -270,6 +270,11 @@ app.registerExtension({
                     } else if (nodeData.name === "Shima.PanelSampler") {
                         this.properties.ue_properties.output_not_broadcasting = { "image": true, "latent": true, "s33d_used": true };
                         this.properties.ue_properties.input_regex = "shimasampler.bndl";
+                    } else if (nodeData.name === "Shima.PanelControlAgent") {
+                        // Shield image input from UE auto-connections to prevent recursion
+                        this.properties.ue_properties.input_ue_unconnectable = { "image": true };
+                        this.properties.ue_properties.output_not_broadcasting = { "shima.controlbus": true, "processed_image": true };
+                        this.properties.ue_properties.input_regex = "shima.controlbus";
                     }
                     if (app.graph) this.setDirtyCanvas(true, true);
                 }, 100);
@@ -842,7 +847,7 @@ app.registerExtension({
             if (node.comfyClass === "Shima.PanelModelCitizen") pcbHeight = 285;
             else if (node.comfyClass === "Shima.PanelLatentMaker") pcbHeight = 215;
             else if (node.comfyClass === "Shima.PanelMasterPrompt") pcbHeight = 255;
-            else if (node.comfyClass === "Shima.PanelControlAgent") pcbHeight = 260;
+            else if (node.comfyClass === "Shima.PanelControlAgent") pcbHeight = 310;
 
             // Hide all standard widgets to preserve PCB aesthetic
             const pcbCleanup = () => {

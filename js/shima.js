@@ -1078,7 +1078,9 @@ function setupLatentMakerWidgets(node) {
  * @param {LGraphNode} node - The ControlAgent node
  */
 function setupControlAgentWidgets(node) {
-    addShimaToolbar(node, ["commonparams", "external_linking"]);
+    if (node.comfyClass !== "Shima.PanelControlAgent") {
+        addShimaToolbar(node, ["commonparams", "external_linking"]);
+    }
     hideToolbarWidgets(node);
     preserveWidgetValues(node, ["use_commonparams", "allow_external_linking"]);
 }

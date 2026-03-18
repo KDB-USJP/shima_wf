@@ -335,6 +335,7 @@ class ShimaPanelLatentMaker(ShimaLatentMaker):
     Panelized variant of ShimaLatentMaker.
     Frontend Javascript hides all native widgets and renders a sleek PCB chassis + double-click HTML modal.
     """
+    FUNCTION = "generate"
     CATEGORY = "Shima/Panels"
     RETURN_TYPES = ("LATENT", "BNDL")
     RETURN_NAMES = ("latent", "latentmaker.bndl")
