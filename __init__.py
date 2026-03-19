@@ -483,8 +483,7 @@ def register_shima_static():
         # Fallback for very old versions or unexpected app objects
         PromptServer.instance.app.add_static("/shima/", str(SHIMA_DIR / "web"), name="shima_static", show_index=True)
 
-# We will call this after all routes are registered.
-register_shima_static()
+# register_shima_static() # Moved to end
 
 
 # --- Documentation API ---
@@ -554,7 +553,8 @@ async def download_excel(request):
             headers={
                 "Cache-Control": "no-store, no-cache, must-revalidate, max-age=0",
                 "Pragma": "no-cache",
-                "Expires": "0"
+                "Expires": "0",
+                "Access-Control-Allow-Origin": "*"
             }
         )
     except Exception as e:
@@ -1453,3 +1453,6 @@ except ImportError as e:
 WEB_DIRECTORY = "./js"
 
 __all__ = ["NODE_CLASS_MAPPINGS", "NODE_DISPLAY_NAME_MAPPINGS", "WEB_DIRECTORY"]
+# Finalize Static Route Registration
+# We do this last to ensure specific /shima/... API routes take precedence over the static /shima/ folder.
+register_shima_static()
