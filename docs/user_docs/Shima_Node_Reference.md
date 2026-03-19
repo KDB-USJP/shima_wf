@@ -138,6 +138,28 @@ Generates a workflow cover image with text overlay and logo compositing. Support
 
 ---
 
+## Shima/Dependencies
+
+### Dependency Generator
+
+Scans the current ComfyUI graph for used models, LoRAs, VAEs, and other assets. It outputs a JSON metadata stub that can be shared alongside workflows to ensure other users have the required dependencies. The node can be triggered manually to refresh the scan.
+
+| Direction | Name | Type | Description |
+|-----------|------|------|--------------|
+| Input | `scan_now` | BOOLEAN | Trigger a diagnostic scan of the current graph |
+| Output | `JSON` | STRING | The generated dependency manifest in JSON format |
+
+### Dependency Installer
+
+Consumes a dependency JSON stub and provides an interactive UI to verify and batch-install missing assets. It uses the Shima AssetManager to handle secure downloads with dynamic size verification. Supports custom save paths for organized asset management.
+
+| Direction | Name | Type | Description |
+|-----------|------|------|--------------|
+| Input | `dependencies_json` | STRING | The dependency manifest to process |
+| Output | `STATUS` | STRING | Current installation and verification status |
+
+---
+
 ## Shima/Image
 
 ### Preview

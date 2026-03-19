@@ -79,6 +79,8 @@ from .panel_bndler import NODE_CLASS_MAPPINGS as PANEL_BNDLER_NODES
 from .panel_bndler import NODE_DISPLAY_NAME_MAPPINGS as PANEL_BNDLER_DISPLAY_NAMES
 from .workflow_checker import NODE_CLASS_MAPPINGS as WORKFLOW_CHECKER_NODES
 from .workflow_checker import NODE_DISPLAY_NAME_MAPPINGS as WORKFLOW_CHECKER_DISPLAY_NAMES
+from .dependency_nodes import NODE_CLASS_MAPPINGS as DEPENDENCY_NODES
+from .dependency_nodes import NODE_DISPLAY_NAME_MAPPINGS as DEPENDENCY_DISPLAY_NAMES
 
 # Import server to register routes
 from . import server
@@ -128,6 +130,7 @@ NODE_CLASS_MAPPINGS = {
     **SEGS_NODES,
     **PANEL_BNDLER_NODES,
     **WORKFLOW_CHECKER_NODES,
+    **DEPENDENCY_NODES,
 }
 
 NODE_DISPLAY_NAME_MAPPINGS = {
@@ -174,6 +177,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     **SEGS_DISPLAY_NAMES,
     **PANEL_BNDLER_DISPLAY_NAMES,
     **WORKFLOW_CHECKER_DISPLAY_NAMES,
+    **DEPENDENCY_DISPLAY_NAMES,
 }
 
 # ============================================================================
@@ -234,6 +238,85 @@ def register_api_routes():
             except Exception as e:
                 return web.json_response({"error": str(e)}, status=500)
         
+        @PromptServer.instance.routes.post("/shima/deps/batch_install")
+        async def batch_install_deps(request):
+            """Download a list of ad-hoc dependencies."""
+            try:
+                data = await request.json()
+                deps = data.get("dependencies", [])
+                
+                from .utils.asset_manager import AssetManager
+                import threading
+                import folder_paths
+                
+                asset_manager = AssetManager()
+                
+                def run_batch(items):
+                    for item in items:
+                        url = item.get("url")
+                        filename = item.get("filename")
+                        # Determine destination root
+                        import folder_paths
+                        
+                        target_sub = item.get("save_path", "")
+                        base_category = "others"
+                        sub_path = ""
+                        
+                        if target_sub and target_sub != "default":
+                            # Check if the first part is a known category (e.g. "controlnet/preprocessors")
+                            parts = target_sub.replace("\\", "/").split("/")
+                            first_part = parts[0]
+                            if first_part in folder_paths.folder_names_and_paths:
+                                base_category = first_part
+                                sub_path = "/".join(parts[1:])
+                            else:
+                                # Fallback to existing m_type logic
+                                m_type = item.get("type", "checkpoints").lower()
+                                if "checkpoint" in m_type: base_category = "checkpoints"
+                                elif "lora" in m_type: base_category = "loras"
+                                elif "vae" in m_type: base_category = "vae"
+                                sub_path = target_sub
+                        else:
+                            # Direct fallback
+                            m_type = item.get("type", "checkpoints").lower()
+                            if "checkpoint" in m_type: base_category = "checkpoints"
+                            elif "lora" in m_type: base_category = "loras"
+                            elif "vae" in m_type: base_category = "vae"
+                        
+                        try:
+                            root_paths = folder_paths.get_folder_paths(base_category)
+                            if not root_paths:
+                                # Final fallback to models root if possible
+                                root_paths = folder_paths.get_folder_paths("checkpoints")
+                                base_dir = os.path.dirname(root_paths[0])
+                            else:
+                                base_dir = root_paths[0]
+                        except:
+                            base_dir = "models" # Absolute fallback
+                            
+                        # Combine base + subfolder
+                        if sub_path:
+                            dest_dir = os.path.join(base_dir, sub_path)
+                            os.makedirs(dest_dir, exist_ok=True)
+                        else:
+                            dest_dir = base_dir
+                            
+                        dest_path = os.path.join(dest_dir, filename)
+                        
+                        print(f"[Shima.Deps] Starting download: {filename} from {url} -> {dest_path}")
+                        try:
+                            asset_manager.download_file(url, dest_path)
+                        except Exception as e:
+                            print(f"[Shima.Deps] Failed to download {filename}: {e}")
+
+                thread = threading.Thread(target=run_batch, args=(deps,))
+                thread.daemon = True
+                thread.start()
+                
+                return web.json_response({"success": True, "message": "Batch download started in background"})
+            except Exception as e:
+                return web.json_response({"success": False, "error": str(e)}, status=500)
+
         print("[Shima] API routes registered successfully")
         
     except Exception as e:

@@ -1,1 +1,0 @@
-This folder is intended to contain end-user documentation. Configuration, system component features, etc. 

@@ -1,5 +1,17 @@
 {
     "bundles": {
+        "shima_official_deps": {
+            "description": "Essential models for official Shima 'Finals' workflows.",
+            "packs": [],
+            "models": [
+                "1.5/absolutereality_v181.safetensors",
+                "lumina_2",
+                "juggernaut_xl_v9",
+                "perfect_hands_v2",
+                "add_detail_xl",
+                "lumina_asian_mix_lora"
+            ]
+        },
         "styler_pro": {
             "description": "All style thumbnail packs for complete creative variety.",
             "packs": ["Walking Woman", "Still Life"],
@@ -253,6 +265,66 @@
             "description": "Specialized Anime Upscaler",
             "filename": "RealESRGAN_x4plus_anime_6B.pth",
             "url": "https://huggingface.co/Aitrepreneur/FLX/resolve/main/RealESRGAN_x4plus_anime_6B.pth?download=true"
+        },
+        {
+            "id": "1.5/absolutereality_v181.safetensors",
+            "name": "Absolute Reality v1.81",
+            "type": "checkpoints",
+            "base": "SD1.5",
+            "save_path": "default",
+            "description": "The Shima standard for SD1.5 realism.",
+            "filename": "absolutereality_v181.safetensors",
+            "url": "https://civitai.com/api/download/models/132760?type=Model&format=SafeTensor&size=pruned&fp=fp16"
+        },
+        {
+            "id": "lumina_2",
+            "name": "Lumina-2",
+            "type": "checkpoints",
+            "base": "lumina2",
+            "save_path": "default",
+            "description": "Next-gen Lumina Flow model.",
+            "filename": "lumina_2.safetensors",
+            "url": "https://huggingface.co/Alpha-VLLM/Lumina-Image-2.0/resolve/main/lumina_2.safetensors?download=true"
+        },
+        {
+            "id": "juggernaut_xl_v9",
+            "name": "Juggernaut XL v9",
+            "type": "checkpoints",
+            "base": "SDXL",
+            "save_path": "default",
+            "description": "High-speed lightning SDXL model.",
+            "filename": "juggernautXL_v9Rdphoto2Lightning.safetensors",
+            "url": "https://civitai.com/api/download/models/357609"
+        },
+        {
+            "id": "perfect_hands_v2",
+            "name": "Perfect Hands v2",
+            "type": "checkpoints",
+            "base": "SDXL",
+            "save_path": "default",
+            "description": "Specialized SDXL model for anatomical accuracy.",
+            "filename": "Perfect Hands v2.safetensors",
+            "url": "https://huggingface.co/Aitrepreneur/FLX/resolve/main/Perfect%20Hands%20v2.safetensors?download=true"
+        },
+        {
+            "id": "add_detail_xl",
+            "name": "Add Detail XL",
+            "type": "checkpoints",
+            "base": "SDXL",
+            "save_path": "default",
+            "description": "Detail enhancement for SDXL.",
+            "filename": "add-detail-xl.safetensors",
+            "url": "https://civitai.com/api/download/models/135931"
+        },
+        {
+            "id": "lumina_asian_mix_lora",
+            "name": "Lumina Asian Mix LoRA",
+            "type": "loras",
+            "base": "lumina2",
+            "save_path": "default",
+            "description": "Lumina-2 specific style LoRA.",
+            "filename": "luminaAsiamMixLora_v0.1-rank32.safetensors",
+            "url": "https://huggingface.co/Alpha-VLLM/Lumina-Image-2.0/resolve/main/luminaAsiamMixLora_v0.1-rank32.safetensors?download=true"
         }
     ],
     "node_registry": {

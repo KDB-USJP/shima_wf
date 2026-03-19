@@ -31,7 +31,7 @@ SHIMA_BANNER = r"""
 /_______  \____ |__||____|_  \____|__  /   
         \/     \/          \/        \/    
                                            
- >>> SHIMA WORKFLOW ISLANDS v2.0.2 <<<
+ >>> SHIMA WORKFLOW ISLANDS v2.0.5 <<<
  ------------------------------------------
  OPTIMIZED FOR:
   + Use Everywhere (Bus/Auto-Connect)
@@ -67,7 +67,7 @@ from .utils.settings_utils import ShimaSettings
 # Extension manifest
 MANIFEST = {
     "name": "Shima",
-    "version": (2, 0, 0),
+    "version": (2, 0, 5),
     "author": "Aegisflow",
     "project": "https://shima.wf",
     "description": "Composable workflow islands with marketplace integration",
@@ -1371,6 +1371,70 @@ async def upload_manifest(request):
     except Exception as e:
         return web.json_response({"error": str(e)}, status=500)
 
+
+@PromptServer.instance.routes.post("/shima/deps/resolve_paths")
+async def resolve_paths(request):
+    """
+    Resolve a list of filenames to their actual relative paths within ComfyUI categories.
+    Used by the Dependency Generator to find exact save_paths.
+    """
+    try:
+        import folder_paths
+        data = await request.json()
+        filenames = data.get("filenames", [])
+        if not filenames:
+            return web.json_response({"success": True, "resolved": {}})
+            
+        mapping = {}
+        
+        # We'll scan all known categories in folder_paths
+        categories = list(folder_paths.folder_names_and_paths.keys())
+        
+        # Priority mapping for common types to help with ambiguity
+        priority_map = {
+            "checkpoints": 10,
+            "loras": 9,
+            "vae": 8,
+            "controlnet": 7,
+            "upscale_models": 6,
+            "embeddings": 5,
+        }
+
+        for cat in categories:
+            try:
+                # get_filename_list returns paths relative to the category root
+                files = folder_paths.get_filename_list(cat)
+                for f in files:
+                    basename = os.path.basename(f)
+                    dirname = os.path.dirname(f)
+                    
+                    # Store structured result
+                    res = {
+                        "category": cat,
+                        "rel_path": f, # full path from cat root
+                        "save_dir": os.path.join(cat, dirname) if dirname else cat
+                    }
+
+                    # 1. Direct match (e.g. 'SDXL/model.safetensors' requested and found)
+                    if f in filenames:
+                        mapping[f] = res
+                        continue
+                        
+                    # 2. Basename match (e.g. 'model.safetensors' requested, found 'SDXL/model.safetensors')
+                    if basename in filenames:
+                        # Priority check
+                        current_res = mapping.get(basename)
+                        if current_res:
+                            if priority_map.get(cat, 0) > priority_map.get(current_res["category"], 0):
+                                mapping[basename] = res
+                        else:
+                            mapping[basename] = res
+            except:
+                continue
+                
+        return web.json_response({"success": True, "resolved": mapping})
+    except Exception as e:
+        return web.json_response({"success": False, "error": str(e)}, status=500)
 
 # ============================================================================
 # Node Registration

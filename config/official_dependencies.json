@@ -1,0 +1,64 @@
+{
+    "id": "shima_official_deps",
+    "name": "Official Shima WF Dependencies---Stable Diffusion",
+    "description": "Essential models for official Shima 'Finals' workflows.",
+    "is_bundle": true,
+    "models": [
+        {
+            "id": "1.5/absolutereality_v181.safetensors",
+            "name": "absolutereality_v181.safetensors",
+            "type": "Checkpoints",
+            "url": "https://INSERT_URL_HERE",
+            "filename": "absolutereality_v181.safetensors",
+            "description": "Essential component for Checkpoints."
+        },
+        {
+            "id": "Lumina/lumina_2.safetensors",
+            "name": "lumina_2.safetensors",
+            "type": "Checkpoints",
+            "url": "https://INSERT_URL_HERE",
+            "filename": "lumina_2.safetensors",
+            "description": "Essential component for Checkpoints."
+        },
+        {
+            "id": "SDXL/juggernautXL_v9Rdphoto2Lightning.safetensors",
+            "name": "juggernautXL_v9Rdphoto2Lightning.safetensors",
+            "type": "Checkpoints",
+            "url": "https://INSERT_URL_HERE",
+            "filename": "juggernautXL_v9Rdphoto2Lightning.safetensors",
+            "description": "Essential component for Checkpoints."
+        },
+        {
+            "id": "XL/Perfect Hands v2.safetensors",
+            "name": "Perfect Hands v2.safetensors",
+            "type": "Checkpoints",
+            "url": "https://INSERT_URL_HERE",
+            "filename": "Perfect Hands v2.safetensors",
+            "description": "Essential component for Checkpoints."
+        },
+        {
+            "id": "XL/add-detail-xl.safetensors",
+            "name": "add-detail-xl.safetensors",
+            "type": "Checkpoints",
+            "url": "https://INSERT_URL_HERE",
+            "filename": "add-detail-xl.safetensors",
+            "description": "Essential component for Checkpoints."
+        },
+        {
+            "id": "Lumina/luminaAsiamMixLora_v0.1-rank32.safetensors",
+            "name": "luminaAsiamMixLora_v0.1-rank32.safetensors",
+            "type": "LoRAs",
+            "url": "https://INSERT_URL_HERE",
+            "filename": "luminaAsiamMixLora_v0.1-rank32.safetensors",
+            "description": "Essential component for LoRAs."
+        },
+        {
+            "id": "SDXL/dynavisionXLAllInOneStylized_release0557Bakedvae.safetensors",
+            "name": "dynavisionXLAllInOneStylized_release0557Bakedvae.safetensors",
+            "type": "checkpoints",
+            "url": "https://civitai.com/api/download/models/198962?type=Model&format=SafeTensor&size=pruned&fp=fp16",
+            "filename": "dynavisionXLAllInOneStylized_release0557Bakedvae.safetensors",
+            "description": "Just a nice anime/toon model"
+        }
+    ]
+}
