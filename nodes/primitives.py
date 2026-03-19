@@ -4,16 +4,59 @@ Shima Primitives - Broadcasting-aware primitive nodes with advanced features.
 
 import math
 
+import ast
+import operator as op
+
+# Supported operators for safe evaluation
+_SAFE_OPERATORS = {
+    ast.Add: op.add, ast.Sub: op.sub, ast.Mult: op.mul,
+    ast.Div: op.truediv, ast.FloorDiv: op.floordiv, 
+    ast.Mod: op.mod, ast.Pow: op.pow,
+    ast.UnaryOp: {ast.USub: op.neg, ast.UAdd: op.pos}
+}
+
+# Supported functions
+_SAFE_FUNCTIONS = {
+    "abs": abs, "min": min, "max": max, "round": round,
+    "pow": pow, "sqrt": math.sqrt, "sin": math.sin,
+    "cos": math.cos, "tan": math.tan, "pi": math.pi,
+    "ceil": math.ceil, "floor": math.floor
+}
+
 def safe_eval(expression, context):
-    """Safely evaluate a mathematical expression."""
-    allowed_names = {
-        "abs": abs, "min": min, "max": max, "round": round, 
-        "pow": pow, "sqrt": math.sqrt, "sin": math.sin, 
-        "cos": math.cos, "tan": math.tan, "pi": math.pi
-    }
+    """Safely evaluate a mathematical expression using AST."""
+    if not expression or not expression.strip():
+        return 0
+    
     try:
-        # Evaluate with restricted environment
-        return eval(expression, {"__builtins__": None}, {**allowed_names, **context})
+        node = ast.parse(expression.strip(), mode='eval').body
+        
+        def _eval(n):
+            if isinstance(n, ast.Num): # Python < 3.8
+                return n.n
+            elif isinstance(n, ast.Constant): # Python >= 3.8
+                return n.value
+            elif isinstance(n, ast.BinOp):
+                left = _eval(n.left)
+                right = _eval(n.right)
+                return _SAFE_OPERATORS[type(n.op)](left, right)
+            elif isinstance(n, ast.UnaryOp):
+                operand = _eval(n.operand)
+                return _SAFE_OPERATORS[ast.UnaryOp][type(n.op)](operand)
+            elif isinstance(n, ast.Name):
+                if n.id in context:
+                    return context[n.id]
+                if n.id in _SAFE_FUNCTIONS:
+                    return _SAFE_FUNCTIONS[n.id]
+                raise NameError(f"Name {n.id} is not defined/allowed")
+            elif isinstance(n, ast.Call):
+                func = _eval(n.func)
+                args = [_eval(arg) for arg in n.args]
+                return func(*args)
+            else:
+                raise TypeError(f"Unsupported AST type: {type(n)}")
+
+        return _eval(node)
     except Exception as e:
         print(f"[Shima Primitive] Evaluation Error: {e}")
         return 0
