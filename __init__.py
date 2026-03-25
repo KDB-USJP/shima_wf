@@ -31,7 +31,7 @@ SHIMA_BANNER = r"""
 /_______  \____ |__||____|_  \____|__  /   
         \/     \/          \/        \/    
                                            
- >>> SHIMA WORKFLOW ISLANDS v2.0.9 <<<
+ >>> SHIMA WORKFLOW ISLANDS v2.0.10 <<<
  ------------------------------------------
  OPTIMIZED FOR:
   + Use Everywhere (Bus/Auto-Connect)
@@ -67,7 +67,7 @@ from .utils.settings_utils import ShimaSettings
 # Extension manifest
 MANIFEST = {
     "name": "Shima",
-    "version": (2, 0, 9),
+    "version": (2, 0, 10),
     "author": "Aegisflow",
     "project": "https://shima.wf",
     "description": "Composable workflow islands with marketplace integration",

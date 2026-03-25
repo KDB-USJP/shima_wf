@@ -192,7 +192,7 @@
             "save_path": "default",
             "description": "Z-Image Base UNet (Standard Edition)",
             "filename": "z_image-Q6_K.gguf",
-            "url": "https://huggingface.co/Aitrepreneur/FLX/resolve/main/z_image-Q6_K.gguf?download=true"
+            "url": "https://huggingface.co/jayn7/Z-Image-GGUF/resolve/main/z_image-Q6_K.gguf?download=true"
         },
         {
             "id": "zimage_unet_turbo_q6",
@@ -202,7 +202,7 @@
             "save_path": "default",
             "description": "Z-Image Turbo UNet (Standard Edition)",
             "filename": "z_image_turbo-Q6_K.gguf",
-            "url": "https://huggingface.co/Aitrepreneur/FLX/resolve/main/z_image_turbo-Q6_K.gguf?download=true"
+            "url": "https://huggingface.co/jayn7/Z-Image-GGUF/resolve/main/z_image-Q6_K.gguf?download=true"
         },
         {
             "id": "zimage_unet_q8",
@@ -212,7 +212,7 @@
             "save_path": "default",
             "description": "Z-Image Base UNet (High Quality Edition)",
             "filename": "z_image-Q8_0.gguf",
-            "url": "https://huggingface.co/Aitrepreneur/FLX/resolve/main/z_image-Q8_0.gguf?download=true"
+            "url": "https://huggingface.co/jayn7/Z-Image-GGUF/resolve/main/z_image-Q8_0.gguf?download=true"
         },
         {
             "id": "zimage_unet_turbo_q8",
@@ -222,7 +222,7 @@
             "save_path": "default",
             "description": "Z-Image Turbo UNet (High Quality Edition)",
             "filename": "z_image_turbo-Q8_0.gguf",
-            "url": "https://huggingface.co/Aitrepreneur/FLX/resolve/main/z_image_turbo-Q8_0.gguf?download=true"
+            "url": "https://huggingface.co/jayn7/Z-Image-GGUF/resolve/main/z_image-Q8_0.gguf?download=true"
         },
         {
             "id": "zimage_union",

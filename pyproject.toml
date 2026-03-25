@@ -1,6 +1,6 @@
 [project]
 name = "comfyui-shima"
-version = "2.0.9"
+version = "2.0.10"
 description = "Shima - ComfyUI Workflow Island Marketplace"
 authors = [
     { name = "Aegisflow", email = "contact@shima.wf" }
