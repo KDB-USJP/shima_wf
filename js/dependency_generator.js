@@ -120,13 +120,17 @@ function setupDependencyGeneratorWidgets(node) {
             if (!allNodes.length) return;
 
             const deps = [];
-            const extensions = [".safetensors", ".ckpt", ".pt", ".pth", ".bin", ".onnx", ".torchscript", ".yaml", ".json"];
+            const extensions = [
+                ".safetensors", ".ckpt", ".pt", ".pth", ".bin", ".onnx", ".torchscript", ".yaml", ".json",
+                ".png", ".jpg", ".jpeg", ".webp", ".mp4", ".mov", ".gif"
+            ];
             const rawIDs = new Set();
             
             // First pass: Collect all potential IDs
             allNodes.forEach(n => {
                 const nodeType = n.comfyClass || n.type || "UnknownNode";
                 if (!n.widgets || nodeType === "Shima.DemuxList") return;
+                
                 n.widgets.forEach(w => {
                     const val = w.value;
                     if (!val || typeof val !== "string") return;
@@ -137,7 +141,11 @@ function setupDependencyGeneratorWidgets(node) {
                     const name = (w.name || "").toLowerCase();
                     const label = (w.label || "").toLowerCase();
 
-                    if (hasExt || nodeType.includes("Loader") || name.includes("image_path") || label.includes("image_path")) {
+                    // Broadened detection: Extensions OR explicit Image/Loader naming
+                    const isLoader = nodeType.includes("Loader") || nodeType === "LoadImage" || nodeType === "LoadImageMask";
+                    const isImageSlot = name === "image" || label === "image" || name.includes("image_path") || label.includes("image_path") || name === "mask" || label === "mask";
+
+                    if (hasExt || isLoader || isImageSlot) {
                         if (val.length > 3 && !val.startsWith("http")) rawIDs.add(val);
                     }
                 });

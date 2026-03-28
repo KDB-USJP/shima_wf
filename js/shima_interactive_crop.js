@@ -87,12 +87,76 @@ app.registerExtension({
                 this.addWidget("button", "🔄 Sync from CommonParams", "sync", () => {
                     this.syncFromCommonParams();
                 });
+                this.addWidget("button", "📥 Import from Link", "import", () => {
+                    this.importFromLink();
+                });
                 this.addWidget("button", "🔳 Reset bounds to preset", "reset", () => {
                     const arWidget = this.widgets.find(w => w.name === "aspect_ratio");
                     const oriWidget = this.widgets.find(w => w.name === "orientation");
                     const r = arWidget ? getTargetRatio(arWidget.value, this.customRatio, oriWidget ? oriWidget.value : "landscape") : null;
                     this.resetCropBox(r);
                 });
+            };
+
+            // Capture the original onExecuted
+            const onExecuted = nodeType.prototype.onExecuted;
+            nodeType.prototype.onExecuted = function (message) {
+                if (onExecuted) onExecuted.apply(this, arguments);
+
+                if (message && message.source_image && message.source_image.length > 0) {
+                    const imgData = message.source_image[0];
+                    const filename = imgData.filename;
+
+                    // Update widget
+                    const imgWidget = this.widgets.find(w => w.name === "image_path");
+                    if (imgWidget) {
+                        imgWidget.value = filename;
+                    }
+
+                    // Update preview
+                    this.loadImage(filename);
+                    console.log(`[Shima] Interactive Crop auto-synced source image: ${filename}`);
+                }
+            };
+
+            // Trace link to source node and pull image selection
+            nodeType.prototype.importFromLink = function () {
+                const graph = this.graph;
+                if (!graph) return;
+
+                const linkId = this.inputs.find(i => i.name === "image")?.link;
+                if (!linkId) {
+                    alert("No image is currently connected to the input.");
+                    return;
+                }
+
+                const link = graph.links[linkId];
+                if (!link) return;
+
+                const sourceNode = graph.getNodeById(link.origin_id);
+                if (!sourceNode) return;
+
+                // Try to find an image-holding widget in the source node
+                // Common names: "image", "image_path", "filename"
+                const imgWidget = sourceNode.widgets?.find(w =>
+                    w.name === "image" ||
+                    w.name === "image_path" ||
+                    w.name === "filename" ||
+                    (w.type === "combo" && (w.name.includes("image") || w.name.includes("filename")))
+                );
+
+                if (imgWidget && imgWidget.value) {
+                    const filename = imgWidget.value;
+                    const myImgWidget = this.widgets.find(w => w.name === "image_path");
+                    if (myImgWidget) {
+                        myImgWidget.value = filename;
+                        this.loadImage(filename);
+                        this.setDirtyCanvas(true, true);
+                        console.log(`[Shima] Imported image from ${sourceNode.title || sourceNode.type}: ${filename}`);
+                    }
+                } else {
+                    alert(`Could not find a compatible image widget on the source node (${sourceNode.title || sourceNode.type}).`);
+                }
             };
 
             // Maximize Crop Box to Target Ratio

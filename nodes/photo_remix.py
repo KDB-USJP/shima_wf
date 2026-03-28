@@ -11,7 +11,8 @@ class ShimaPhotoRemix:
         return {
             "required": {
                 "image": ("IMAGE",),
-                "seed": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff}),
+                "s33d": ("INT", {"default": 0, "min": 0, "max": 0xffffffffffffffff}),
+                "randomize": ("BOOLEAN", {"default": False}),
                 "steps": ("INT", {"default": 20, "min": 1, "max": 10000}),
                 "cfg": ("FLOAT", {"default": 8.0, "min": 0.0, "max": 100.0, "step":0.1, "round": 0.01}),
                 "sampler_name": (comfy.samplers.KSampler.SAMPLERS, ),
@@ -28,6 +29,7 @@ class ShimaPhotoRemix:
                     "forceInput": True,
                     "tooltip": "Configuration bundle from Shima.Commons (overrides settings)"
                 }),
+                "use_commonparams": ("BOOLEAN", {"default": True, "tooltip": "If True, use settings from Shima.Commons bundle"}),
                 "modelcitizen.bndl": ("BNDL", {
                     "forceInput": True,
                     "tooltip": "Bundle containing Model, CLIP, and VAE (overrides individual inputs)"
@@ -56,16 +58,32 @@ class ShimaPhotoRemix:
         }
 
     RETURN_TYPES = ("IMAGE", "LATENT",)
+    RETURN_NAMES = ("image", "latent")
     FUNCTION = "remix"
     CATEGORY = "Shima/Image"
 
-    def remix(self, image, seed, steps, cfg, sampler_name, scheduler, denoise, resolution_mode, positive=None, negative=None, model=None, vae=None, bucket_width=1024, bucket_height=1024, **kwargs):
+    @classmethod
+    def IS_CHANGED(cls, s33d, randomize, **kwargs):
+        if randomize:
+            import random
+            return random.random()
+        return s33d
+
+    def remix(self, image, s33d, randomize, steps, cfg, sampler_name, scheduler, denoise, resolution_mode, positive=None, negative=None, model=None, vae=None, bucket_width=1024, bucket_height=1024, use_commonparams=True, **kwargs):
         # Handle dot notation / BNDL / Legacy inputs
         shima_commonparams = kwargs.get("shima.commonparams", None)
         samplercommons = kwargs.get("shima.samplercommons", None)
         modelcitizen = kwargs.get("modelcitizen") or kwargs.get("modelcitizen.bndl") or kwargs.get("modelbundle", None)
         masterprompt = kwargs.get("masterprompt") or kwargs.get("masterprompt.bndl")
-        
+
+        # --- SEED RESOLUTION ---
+        active_seed = s33d
+        if use_commonparams and shima_commonparams:
+            active_seed = shima_commonparams.get("seed", s33d)
+        elif randomize:
+            import random
+            active_seed = random.randint(0, 0xffffffffffffffff)
+
         if samplercommons:
             steps = samplercommons.get("steps", steps)
             cfg = samplercommons.get("cfg", cfg)
@@ -170,12 +188,9 @@ class ShimaPhotoRemix:
         # Use nodes.common_ksampler for reliability (handles noise, steps, and updates automatically)
         
         try:
-            # common_ksampler(model, seed, steps, cfg, sampler_name, scheduler, positive, negative, latent, denoise=1.0, disable_noise=False, start_step=None, last_step=None, force_full_denoise=False)
-            # We trust it to handle start_step calculation based on denoise
-            
             sampled_ret = nodes.common_ksampler(
                 model, 
-                seed, 
+                active_seed, 
                 steps, 
                 cfg, 
                 sampler_name, 
@@ -185,7 +200,6 @@ class ShimaPhotoRemix:
                 latent_image, 
                 denoise=denoise
             )
-            
             sampled_latent = sampled_ret[0]
             
         except Exception as e:
@@ -193,10 +207,25 @@ class ShimaPhotoRemix:
             raise e
 
         # 4. VAE Decode
-        # -------------
-        # Latent -> Pixel
-        # Returns (IMAGE,)
         common_decoder = nodes.VAEDecode()
         result_image = common_decoder.decode(vae, sampled_latent)[0]
 
-        return (result_image, sampled_latent)
+        # 5. Execution Transparency
+        used_values = [
+            f"Seed: {active_seed}",
+            f"Steps: {steps}",
+            f"CFG: {cfg}",
+            f"Sampler: {sampler_name}",
+            f"Scheduler: {scheduler}",
+            f"Denoise: {denoise:.2f}",
+            f"Res: {target_w}x{target_h} ({resolution_mode})"
+        ]
+        
+        if use_commonparams and shima_commonparams:
+            used_values.insert(0, "Source: CommonParams Sync")
+        elif randomize:
+            used_values.insert(0, "Source: Local Randomization")
+        else:
+            used_values.insert(0, "Source: Manual s33d")
+
+        return {"ui": {"used_values": used_values}, "result": (result_image, sampled_latent)}

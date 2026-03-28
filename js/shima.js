@@ -177,6 +177,10 @@ const USED_VALUES_FIELDS = {
     "Shima.Preview": ["folder_path", "filename"],
     "Shima.PreviewCompare": ["folder_path", "filename"],
     "Shima.StyleIterator": ["style_mode", "name", "current_index", "formatted_name"],
+    "Shima.SlicedUpscaler": ["orientation", "slices", "scale", "feathering", "final_res"],
+    "Shima.SlicedImageHub": ["count", "feathering"],
+    "Shima.SliceCombinerHub": ["orientation", "slices", "overlap", "final_res"],
+    "Shima.SlicedCommons": ["orientation", "slices", "overlap", "feathering"],
 };
 
 /**

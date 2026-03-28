@@ -38,6 +38,9 @@ class ShimaBoundingBoxPicker:
                 "image": ("IMAGE", {"tooltip": "If connected, overrides the internal image_path loader."}),
                 "shima.commonparams": ("DICT", {"tooltip": "If connected, frontend can read target width/height for custom ratio."}),
                 "active": ("BOOLEAN", {"default": True, "forceInput": True}),
+            },
+            "hidden": {
+                "unique_id": "UNIQUE_ID",
             }
         }
 
@@ -71,10 +74,38 @@ class ShimaBoundingBoxPicker:
         image = torch.from_numpy(image)[None,]
         return image
 
-    def crop_image(self, image_path, crop_x, crop_y, crop_w, crop_h, aspect_ratio, active=True, image=None, **kwargs):
+    def crop_image(self, image_path, crop_x, crop_y, crop_w, crop_h, aspect_ratio, active=True, image=None, unique_id=None, **kwargs):
+        import os
         # 1. Resolve Input Tensor
+        input_tensor = None
+        ui_results = {}
+
         if image is not None:
             input_tensor = image
+            # === Save Preview for Frontend ===
+            try:
+                import folder_paths
+                temp_dir = folder_paths.get_temp_directory()
+                # Use the first image in batch for preview
+                preview_image = image[0].cpu().numpy()
+                if preview_image.max() <= 1.0:
+                    preview_image = (preview_image * 255).astype(np.uint8)
+                
+                # Use node ID for a stable-ish filename
+                node_id = unique_id if unique_id else "unknown"
+                temp_filename = f"ShimaCropSource_{node_id}.png"
+                temp_path = os.path.join(temp_dir, temp_filename)
+                
+                img = Image.fromarray(preview_image)
+                img.save(temp_path)
+                
+                ui_results["source_image"] = [{
+                    "filename": temp_filename,
+                    "subfolder": "",
+                    "type": "temp",
+                }]
+            except Exception as e:
+                print(f"[Shima] Failed to save crop source preview: {e}")
         else:
             if not image_path:
                 raise ValueError("Shima.BoundingBoxPicker requires an 'image' input or a selected 'image_path'.")
@@ -94,7 +125,7 @@ class ShimaBoundingBoxPicker:
                 "norm_x": 0.0, "norm_y": 0.0, "norm_w": 1.0, "norm_h": 1.0,
                 "original_width": img_w, "original_height": img_h
             }
-            return (input_tensor, full_mask, full_crop_data)
+            return {"ui": ui_results, "result": (input_tensor, full_mask, full_crop_data)}
             
         # 3. Calculate absolute pixel coordinates from normalized normalized values
         # Clamping to ensure we don't go out of bounds due to floating point rounding
@@ -140,7 +171,7 @@ class ShimaBoundingBoxPicker:
             "original_height": img_h
         }
         
-        return (cropped_tensor, mask, crop_data)
+        return {"ui": ui_results, "result": (cropped_tensor, mask, crop_data)}
 
 NODE_CLASS_MAPPINGS = {
     "Shima.BoundingBoxPicker": ShimaBoundingBoxPicker

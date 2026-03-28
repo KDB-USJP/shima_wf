@@ -67,6 +67,23 @@ For SDXL, using both CLIP-L and CLIP-G together produces richer results than usi
 | Output | `negative` | CONDITIONING | Encoded negative conditioning |
 | Output | `masterprompt.bndl` | BNDL | Bundle containing both conditionings |
 
+### ControlNet Agent
+
+The ControlNet Agent is a high-performance wrapper for applying ControlNet models with integrated resolution handling and crop synchronization. It features a "Skip" fit method for passing pre-processed control maps at their original size.
+
+| Direction | Name | Type | Description |
+|-----------|------|------|--------------|
+| Input | `positive`, `negative` | CONDITIONING | Conditioning to be controlled |
+| Input | `control_net` | CONTROL_NET | The ControlNet model to apply |
+| Input | `image` | IMAGE | The control image (hint) |
+| Widget | `strength` | FLOAT | Control strength (0.0–1.0) |
+| Widget | `start_percent` | FLOAT | When to start applying (0.0–1.0) |
+| Widget | `end_percent` | FLOAT | When to stop applying (0.0–1.0) |
+| Widget | `fit_method` | COMBO | `stretch`, `crop`, `center`, or `skip` |
+| Widget | `show_used_values` | BOOLEAN | Display passed values |
+| Widget | `allow_external_linking` | BOOLEAN | Topbar toggle |
+| Output | `positive`, `negative` | CONDITIONING | Output conditioning |
+
 ---
 
 ## Shima/Design
@@ -142,7 +159,7 @@ Generates a workflow cover image with text overlay and logo compositing. Support
 
 ### Dependency Generator
 
-Scans the current ComfyUI graph for used models, LoRAs, VAEs, and other assets. It outputs a JSON metadata stub that can be shared alongside workflows to ensure other users have the required dependencies. The node can be triggered manually to refresh the scan.
+Scans the current ComfyUI graph for used models, LoRAs, VAEs, and other assets. It outputs a JSON metadata stub that can be shared alongside workflows to ensure other users have the required dependencies. The node supports deep scanning for standard image/video loaders (PNG, JPG, MP4, etc.) as well as Shima-specific asset paths.
 
 | Direction | Name | Type | Description |
 |-----------|------|------|--------------|
@@ -191,7 +208,7 @@ Applies transformations to a batch of images sequentially.
 
 ### Photo Remix
 
-Creative image remixing with style transfer capabilities. Accepts model and conditioning via individual inputs or via `modelcitizen.bndl` and `masterprompt.bndl` bundles (BNDL inputs override individual wires).
+Creative image remixing with style transfer capabilities. Features full synchronization with **Shima.Commons** for seed and parameter consistency. Accepts model and conditioning via individual inputs or via `modelcitizen.bndl` and `masterprompt.bndl` bundles (BNDL inputs override individual wires).
 
 | Direction | Name | Type | Description |
 |-----------|------|------|--------------|
@@ -200,10 +217,13 @@ Creative image remixing with style transfer capabilities. Accepts model and cond
 | Input | `negative` | CONDITIONING | Negative conditioning (optional if using masterprompt.bndl) |
 | Input | `model` | MODEL | Diffusion model (optional if using modelcitizen.bndl) |
 | Input | `vae` | VAE | VAE decoder (optional if using modelcitizen.bndl) |
-| Input | `modelcitizen.bndl` | BNDL | Model Citizen bundle (auto-extracts model + vae) |
-| Input | `masterprompt.bndl` | BNDL | Master Prompt bundle (auto-extracts pos + neg conditioning) |
+| Input | `shima.commonparams` | DICT | Common parameters bundle for seed sync |
+| Widget | `use_commonparams` | BOOLEAN | Toggle global synchronization (Icon in Topbar) |
+| Widget | `s33d` | INT | Local seed (active if sync is OFF and randomize is OFF) |
+| Widget | `randomize` | BOOLEAN | Local randomization fallback |
 | Widget | `resolution_mode` | COMBO | Source, SDXL Buckets, SD1.5 Buckets, or Custom |
 | Widget | `denoise` | FLOAT | Denoising strength (default 0.60) |
+| Widget | `show_used_values` | BOOLEAN | Transparency display toggled via Topbar |
 | Output | `IMAGE` | IMAGE | Remixed image |
 | Output | `LATENT` | LATENT | Sampled latent |
 
@@ -526,6 +546,64 @@ Provides deterministic seed management with increment/decrement/randomize modes.
 | Widget | `seed` | INT | Base seed value |
 | Widget | `mode` | COMBO | "fixed", "increment", "decrement", "randomize" |
 | Output | `INT` | INT | Seed value |
+
+---
+
+## Shima/Sliced
+
+Nodes for VRAM-efficient high-resolution processing and modular image manipulation.
+
+### Sliced Upscaler
+
+Sequentially upscales images in horizontal or vertical slices. Uses `replicate` padding to eliminate boundary artifacts and supports feathered alpha-blending for seamless joins. Can function as a standalone slicer (1x mode) when no upscale model is provided.
+
+| Direction | Name | Type | Description |
+|-----------|------|------|--------------|
+| Input | `image` | IMAGE | Image to upscale/slice |
+| Input | `upscale_model` | UPSCALE_MODEL | Optional model for 2nd pass upscaling |
+| Input | `sliced_commons` | DICT | Parameters from Shima.SlicedCommons |
+| Widget | `orientation` | COMBO | Vertical (Columns) or Horizontal (Rows) |
+| Widget | `slices` | INT | Number of segments (2–10) |
+| Widget | `overlap` | INT | Pixel overlap for blending (0–1024) |
+| Widget | `feather_size` | INT | Alpha-feathering width (0–512) |
+| Widget | `feathering` | BOOLEAN | Toggle blending (OFF for hard-edge seams) |
+| Output | `IMAGE` | IMAGE | Merged high-resolution result |
+| Output | `IMAGE` | IMAGE | Batch of individual processed slices |
+
+### Sliced Commons
+
+A single source of truth for slicing parameters. Feeds `Sliced Upscaler`, `Sliced Image Hub`, and `Slice Combiner Hub` via a synchronized dictionary.
+
+| Direction | Name | Type | Description |
+|-----------|------|------|--------------|
+| Widget | `orientation` | COMBO | Vertical or Horizontal |
+| Widget | `slices` | INT | Segment count |
+| Widget | `overlap` | INT | Overlap pixels |
+| Widget | `feather_size` | INT | Feathering pixels |
+| Widget | `feathering` | BOOLEAN | Enable/Disable blending |
+| Output | `SLICED_COMMONS` | DICT | Sliced configuration bundle |
+
+### Sliced Image Hub
+
+Splits a sliced image batch (from Sliced Upscaler) into up to 12 individual IMAGE streams for modular node processing.
+
+| Direction | Name | Type | Description |
+|-----------|------|------|--------------|
+| Input | `slices` | IMAGE | Image batch of segments |
+| Output | `image_1`–`image_12` | IMAGE | Individual slice outputs |
+| Output | `count` | INT | Number of active slices |
+
+### Slice Combiner Hub
+
+Merges processed slice streams back into a single composite image using the same orientation and blending logic as the Upscaler.
+
+| Direction | Name | Type | Description |
+|-----------|------|------|--------------|
+| Input | `image_1`–`image_12` | IMAGE | Individual slice inputs |
+| Input | `sliced_commons` | DICT | Sync bundle for merge logic |
+| Output | `IMAGE` | IMAGE | Re-merged final image |
+
+---
 
 ---
 

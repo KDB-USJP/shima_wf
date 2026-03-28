@@ -26,7 +26,7 @@ class ShimaControlAgent:
                 "image": ("IMAGE",),
                 "control_type": (["canny", "depth", "pose", "lineart", "scribble", "color"], {"default": "canny"}),
                 "strength": ("FLOAT", {"default": 1.0, "min": 0.0, "max": 10.0, "step": 0.05}),
-                "fit_method": (["crop to fit", "pad to fit", "stretch"], {"default": "crop to fit"}),
+                "fit_method": (["crop to fit", "pad to fit", "stretch", "skip"], {"default": "crop to fit"}),
                 "bypass_preprocessing": ("BOOLEAN", {"default": False, "tooltip": "Check this box if your image is already properly formatted for your chosen controlnet."}),
             },
             "optional": {
@@ -128,6 +128,10 @@ class ShimaControlAgent:
                     
                 # Downsize/Upsize the padded image to the exact target size
                 tensor_bchw = F.interpolate(tensor_bchw, size=(target_h, target_w), mode="bilinear", align_corners=False)
+
+            elif fit_method == "skip":
+                # Do nothing, use original image as-is
+                pass
 
             # Convert back to BHWC
             processed_image = tensor_bchw.permute(0, 2, 3, 1)
