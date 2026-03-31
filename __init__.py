@@ -1475,6 +1475,14 @@ except ImportError as e:
 WEB_DIRECTORY = "./js"
 
 __all__ = ["NODE_CLASS_MAPPINGS", "NODE_DISPLAY_NAME_MAPPINGS", "WEB_DIRECTORY"]
+
+# Extension metadata
+EXTENSION_METADATA = {
+    "version": (2, 0, 13),
+    "name": "Shima Ecosystem",
+    "description": "Premium workflow aesthetics and logic gates."
+}
+
 # Finalize Static Route Registration
 # We do this last to ensure specific /shima/... API routes take precedence over the static /shima/ folder.
 register_shima_static()
